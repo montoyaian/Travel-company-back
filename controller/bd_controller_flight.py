@@ -355,5 +355,6 @@ class DatabaseControllerFlight():
                 '''SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = {}'''.format(id))
                 rows = cursor.fetchall()
                 connection.commit()
+                return {rows}
             except:
                 {"message" : "datos no validos"}   
