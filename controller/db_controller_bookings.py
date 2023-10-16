@@ -12,8 +12,7 @@ class DatabaseControllerBokings():
     This class is used to connect to the database and execute queries
     """
     def insert_booking(self, booking: Booking):
-        connection = mysql.connector.connect(user='uluf7v2ee4qsnl5t',password='t9oXzVw4GBxRQm0VgWGm',host='bawcgrp6dvncdrpjz2lu-mysql.services.clever-cloud.com',database='bawcgrp6dvncdrpjz2lu',port='3306')
-        cursor = connection.cursor()
+
         if booking.type_flight =="standart class":
             cursor.execute("""SELECT * FROM bawcgrp6dvncdrpjz2lu.standart_class WHERE ID= %s""", (booking.id_flight,))
             flight = cursor.fetchone()
@@ -478,15 +477,13 @@ class DatabaseControllerBokings():
             return{"error":"reserva no encontrada"}
                     
     def show_booking(self):
-        connection = mysql.connector.connect(user='uluf7v2ee4qsnl5t',password='t9oXzVw4GBxRQm0VgWGm',host='bawcgrp6dvncdrpjz2lu-mysql.services.clever-cloud.com',database='bawcgrp6dvncdrpjz2lu',port='3306')
-        cursor = connection.cursor()
+
         cursor.execute('SELECT * FROM bawcgrp6dvncdrpjz2lu.bookings')
         rows = cursor.fetchall()      
         return rows 
     
     def show_bill(self, id_booking:int, payment_method:str):
-        connection = mysql.connector.connect(user='uluf7v2ee4qsnl5t',password='t9oXzVw4GBxRQm0VgWGm',host='bawcgrp6dvncdrpjz2lu-mysql.services.clever-cloud.com',database='bawcgrp6dvncdrpjz2lu',port='3306')
-        cursor = connection.cursor()
+
         cursor.execute("""SELECT * FROM bawcgrp6dvncdrpjz2lu.bookings WHERE ID= %s""", (id_booking,))
         booking = cursor.fetchone() 
         if booking:

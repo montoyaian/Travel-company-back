@@ -16,8 +16,7 @@ class DatabaseControllerFlight():
     """
 
     def insert_flight(self, flight: Firtsclass or Economiclass or Standartclass):
-        connection = mysql.connector.connect(user='uluf7v2ee4qsnl5t',password='t9oXzVw4GBxRQm0VgWGm',host='bawcgrp6dvncdrpjz2lu-mysql.services.clever-cloud.com',database='bawcgrp6dvncdrpjz2lu',port='3306')
-        cursor = connection.cursor()
+
         cursor.execute(
         """SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = %s""",
         (flight.id_agency,),
@@ -123,8 +122,7 @@ class DatabaseControllerFlight():
      
     def edit_supplier(self,supplier:Supplier ):
     
-        connection = mysql.connector.connect(user='uluf7v2ee4qsnl5t',password='t9oXzVw4GBxRQm0VgWGm',host='bawcgrp6dvncdrpjz2lu-mysql.services.clever-cloud.com',database='bawcgrp6dvncdrpjz2lu',port='3306')
-        cursor = connection.cursor()
+
         cursor.execute("""SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE ID = %s""", (supplier.id,))
         result = cursor.fetchone()
 
@@ -153,8 +151,7 @@ class DatabaseControllerFlight():
         return supplierj
 
     def edit_flight(self, flight:Standartclass or Firtsclass):
-        connection = mysql.connector.connect(user='uluf7v2ee4qsnl5t',password='t9oXzVw4GBxRQm0VgWGm',host='bawcgrp6dvncdrpjz2lu-mysql.services.clever-cloud.com',database='bawcgrp6dvncdrpjz2lu',port='3306')
-        cursor = connection.cursor()
+
         cursor.execute(
         """SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = %s""",
         (flight.id_agency,),
@@ -268,8 +265,7 @@ class DatabaseControllerFlight():
         """
         Delete a flight from database
         """
-        connection = mysql.connector.connect(user='uluf7v2ee4qsnl5t',password='t9oXzVw4GBxRQm0VgWGm',host='bawcgrp6dvncdrpjz2lu-mysql.services.clever-cloud.com',database='bawcgrp6dvncdrpjz2lu',port='3306')
-        cursor = connection.cursor()
+
         class_type.lower()
         if (class_type == "firts class"):
             cursor.execute(
@@ -308,8 +304,7 @@ class DatabaseControllerFlight():
         """
         Delete a supplier from database
         """
-        connection = mysql.connector.connect(user='uluf7v2ee4qsnl5t',password='t9oXzVw4GBxRQm0VgWGm',host='bawcgrp6dvncdrpjz2lu-mysql.services.clever-cloud.com',database='bawcgrp6dvncdrpjz2lu',port='3306')
-        cursor = connection.cursor()
+
         
         cursor.execute(
         """SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = %s""",
@@ -327,8 +322,7 @@ class DatabaseControllerFlight():
             return {"error":"proveedor no encontrado"}        
             
     def show_flight(self, table_name:str ):
-        connection = mysql.connector.connect(user='uluf7v2ee4qsnl5t',password='t9oXzVw4GBxRQm0VgWGm',host='bawcgrp6dvncdrpjz2lu-mysql.services.clever-cloud.com',database='bawcgrp6dvncdrpjz2lu',port='3306')
-        cursor = connection.cursor()
+
         try:
             if table_name == "all":
                 cursor.execute('SELECT * FROM bawcgrp6dvncdrpjz2lu.firts_class')
@@ -349,8 +343,7 @@ class DatabaseControllerFlight():
             return{"error":"tabla no valida"}
 
     def show_supplier(self):
-        connection = mysql.connector.connect(user='uluf7v2ee4qsnl5t',password='t9oXzVw4GBxRQm0VgWGm',host='bawcgrp6dvncdrpjz2lu-mysql.services.clever-cloud.com',database='bawcgrp6dvncdrpjz2lu',port='3306')
-        cursor = connection.cursor()
+
         cursor.execute('SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier')
         rows = cursor.fetchall()      
         return rows 
