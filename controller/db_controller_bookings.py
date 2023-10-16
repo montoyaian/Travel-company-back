@@ -12,7 +12,7 @@ class DatabaseControllerBokings():
     This class is used to connect to the database and execute queries
     """
     def insert_booking(self, booking: Booking):
-
+        cursor = connection.cursor()
         if booking.type_flight =="standart class":
             cursor.execute("""SELECT * FROM bawcgrp6dvncdrpjz2lu.standart_class WHERE ID= %s""", (booking.id_flight,))
             flight = cursor.fetchone()
@@ -289,6 +289,7 @@ class DatabaseControllerBokings():
             return{"error":"tipo de vuelo no encontrado"}
           
     def edit_booking(self, cant_position:int, id_booking:int):
+        cursor = connection.cursor()
         cursor.execute("""SELECT * FROM bawcgrp6dvncdrpjz2lu.Bookings WHERE ID= %s""", (id_booking,))
         booking = cursor.fetchone()
         if booking:
@@ -371,6 +372,7 @@ class DatabaseControllerBokings():
             return{"error":"reserva no encontrada"}
     
     def delete_booking(self, id:int):
+        cursor = connection.cursor()
         cursor.execute("""SELECT * FROM bawcgrp6dvncdrpjz2lu.Bookings WHERE ID= %s""", (id,))
         booking = cursor.fetchone()
         if booking:
@@ -477,13 +479,13 @@ class DatabaseControllerBokings():
             return{"error":"reserva no encontrada"}
                     
     def show_booking(self):
-
+        cursor = connection.cursor()
         cursor.execute('SELECT * FROM bawcgrp6dvncdrpjz2lu.bookings')
         rows = cursor.fetchall()      
         return rows 
     
     def show_bill(self, id_booking:int, payment_method:str):
-
+        cursor = connection.cursor()
         cursor.execute("""SELECT * FROM bawcgrp6dvncdrpjz2lu.bookings WHERE ID= %s""", (id_booking,))
         booking = cursor.fetchone() 
         if booking:

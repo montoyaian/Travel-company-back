@@ -16,7 +16,7 @@ class DatabaseControllerFlight():
     """
 
     def insert_flight(self, flight: Firtsclass or Economiclass or Standartclass):
-
+        cursor = connection.cursor()
         cursor.execute(
         """SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = %s""",
         (flight.id_agency,),
@@ -94,9 +94,6 @@ class DatabaseControllerFlight():
             return{"error":"proveedor no encontrado"}
    
     def insert_supplier(self, supplier:Supplier ):
-    
-        connection = mysql.connector.connect(user='uluf7v2ee4qsnl5t',password='t9oXzVw4GBxRQm0VgWGm',host='bawcgrp6dvncdrpjz2lu-mysql.services.clever-cloud.com',database='bawcgrp6dvncdrpjz2lu',port='3306')
-
         cursor = connection.cursor()
         cursor.execute("""INSERT INTO  bawcgrp6dvncdrpjz2lu.supplier(
         Name,
@@ -121,8 +118,7 @@ class DatabaseControllerFlight():
 
      
     def edit_supplier(self,supplier:Supplier ):
-    
-
+        cursor = connection.cursor()
         cursor.execute("""SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE ID = %s""", (supplier.id,))
         result = cursor.fetchone()
 
@@ -151,7 +147,7 @@ class DatabaseControllerFlight():
         return supplierj
 
     def edit_flight(self, flight:Standartclass or Firtsclass):
-
+        cursor = connection.cursor()
         cursor.execute(
         """SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = %s""",
         (flight.id_agency,),
@@ -265,7 +261,7 @@ class DatabaseControllerFlight():
         """
         Delete a flight from database
         """
-
+        cursor = connection.cursor()
         class_type.lower()
         if (class_type == "firts class"):
             cursor.execute(
@@ -304,7 +300,7 @@ class DatabaseControllerFlight():
         """
         Delete a supplier from database
         """
-
+        cursor = connection.cursor()
         
         cursor.execute(
         """SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = %s""",
@@ -343,7 +339,7 @@ class DatabaseControllerFlight():
             return{"error":"tabla no valida"}
 
     def show_supplier(self):
-
+        cursor = connection.cursor()
         cursor.execute('SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier')
         rows = cursor.fetchall()      
         return rows 

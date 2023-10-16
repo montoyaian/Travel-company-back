@@ -13,8 +13,7 @@ class DatabaseControllerClient():
     This class is used to connect to the database and execute queries
     """
     def insert_client(self, client: Standardclient or PremiumClient):
-    
-
+        cursor = connection.cursor()
        
         if isinstance(client,Standardclient):
             cursor.execute('''INSERT INTO bawcgrp6dvncdrpjz2lu.standart_client(
@@ -62,6 +61,7 @@ class DatabaseControllerClient():
             return clientj
 
     def insert_offer(self, offer:Offer):
+        cursor = connection.cursor()
         if offer.flight_type == "standart class":
             cursor.execute(
             """SELECT * FROM bawcgrp6dvncdrpjz2lu.standart_class WHERE id = %s""",
@@ -94,6 +94,7 @@ class DatabaseControllerClient():
                 return{"error": "id de vuelo no encotrado"}
             
         elif offer.flight_type == "firts class":
+            cursor = connection.cursor()
             cursor.execute(
             """SELECT * FROM bawcgrp6dvncdrpjz2lu.firts_class WHERE id = %s""",
             (offer.id_flight,),
@@ -127,6 +128,7 @@ class DatabaseControllerClient():
             return{"error": "tipo de vuelo no encotrado"}       
         
     def edit_client(self, client):
+        cursor = connection.cursor()
         if isinstance(client, Standardclient):
             cursor.execute(
             """SELECT * FROM bawcgrp6dvncdrpjz2lu.standart_client WHERE id = %s""",
@@ -191,6 +193,7 @@ class DatabaseControllerClient():
                 return{"error": "cliente no encontrado"}
 
     def edit_offer(self,offer:Offer):
+        cursor = connection.cursor()
         cursor.execute(
         """SELECT * FROM bawcgrp6dvncdrpjz2lu.Offers WHERE id = %s""",
         (offer.id,),
@@ -270,6 +273,7 @@ class DatabaseControllerClient():
         """
         Delete a client from database
         """
+        cursor = connection.cursor()
         client_type.lower()
         if (client_type == "premium client"):
             cursor.execute("""SELECT * FROM bawcgrp6dvncdrpjz2lu.premium_client WHERE ID = %s """,(id,))
@@ -363,6 +367,7 @@ class DatabaseControllerClient():
             return {"error":"cliente no encontrado"}
         
     def delete_offer(self, id:int):
+        cursor = connection.cursor()
         """
         Delete a offer from database
         """
@@ -380,6 +385,7 @@ class DatabaseControllerClient():
             return {"error":"oferta no encontrada"} 
     
     def show_client(self, table_name:str):
+        cursor = connection.cursor()
         try:
             if table_name == "all":
                 cursor.execute('SELECT * FROM bawcgrp6dvncdrpjz2lu.standart_client')
@@ -400,11 +406,13 @@ class DatabaseControllerClient():
             return{"error":"tabla no valida"}      
 
     def show_offer(self):
+        cursor = connection.cursor()
         cursor.execute('SELECT * FROM bawcgrp6dvncdrpjz2lu.Offers')
         rows = cursor.fetchall()      
         return rows         
     
     def premium_clients(self):
+        cursor = connection.cursor()
         cursor.execute(
         """SELECT * FROM bawcgrp6dvncdrpjz2lu.standart_client WHERE Bookings >= %s""",
         (4,),
