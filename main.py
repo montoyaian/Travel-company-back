@@ -21,6 +21,9 @@ bd_object_flights = DatabaseControllerFlight()
 bd_object_client = DatabaseControllerClient() 
 bd_object_booking = DatabaseControllerBokings()
 
+@app.get("/")
+async def root():
+    return {"Hello": "Travel company API"}
 
 @app.post("/add/firtsclass")
 async def add_firtsclass(origin:str ="origin", destination:str="destination", date:str = date.today(), 
@@ -180,6 +183,13 @@ def show_offers(id:str = "all or id"):
     """ 
     return bd_object_client.show_offer(id=id)
 
+@app.get("/get/bill/{id}")
+def show_bill(id:str = "all or id"):
+    """
+    show bill
+    """ 
+    return bd_object_flights.show_supplier(id=id)
+
 @app.get("/get/bookings/{id}")
 def show_bookings(id:str = "all or id"):
     """
@@ -200,3 +210,5 @@ def show_bill(id_booking:int = 1,payment_method:str = "payment_method"):
     show bill
     """ 
     return bd_object_booking.show_bill(id_booking=id_booking,payment_method=payment_method)
+
+
