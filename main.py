@@ -22,52 +22,52 @@ bd_object_client = DatabaseControllerClient()
 bd_object_booking = DatabaseControllerBokings()
 
 
-@app.post("/api/ADD/firtsclass")
+@app.post("/add/firtsclass")
 async def add_firtsclass(origin:str ="origin", destination:str="destination", date:str = date.today(), 
-                                            positions:int=1, hour:float=1, id_agency:int=1, premium_cost:int=1):
+                                            positions:int=1, hour:float=1, id_agency:int=1, premium_cost:float=1):
     """
     Add a firtsclass to database
     """
     return bd_object_flights.insert_flight(Firtsclass(id=id,origin =origin, destination=destination, date= date, 
                                             positions=positions, hour=hour, id_agency=id_agency, premium_cost=premium_cost))
-@app.post("/api/ADD/offers")
+@app.post("/add/offers")
 async def add_offers(id_flight:int=1, discount:int=1, customer_type:str="customer type",flight_type:str="flight type"):
     """
     Add a offer to database
     """
     return bd_object_client.insert_offer(Offer(id=id, id_flight=id_flight, discount=discount, customer_type=customer_type, flight_type=flight_type))
 
-@app.post("/api/ADD/supplier")
+@app.post("/add/supplier")
 async def add_supplier(name:str="name", contact:int=0,description:str="description"):
     """
     Add a offer to database
     """
     return bd_object_flights.insert_supplier(Supplier(id=id, name=name, contact=contact,description=description))
         
-@app.post("/api/ADD/standartclass")
+@app.post("/add/standartclass")
 async def add_standartclass(origin:str ="origin", destination:str="destination", date:str = date.today(), 
-                                            positions:int=1, hour:float=1, id_agency:int=1, standart_cost:int=1):
+                                            positions:int=1, hour:float=1, id_agency:int=1, standart_cost:float=1):
     """
     Add a standart class to database
     """
     return bd_object_flights.insert_flight(Standartclass(id=id,origin =origin, destination=destination, date= date, 
                                             positions=positions, hour=hour, id_agency=id_agency, standart_cost=standart_cost))
     
-@app.post("/api/ADD/standartclient")
+@app.post("add/standartclient")
 async def add_standartclient(name:str="name", contact:int=0, bookings:int=0,email:str="email"):
     """
     Add a standart client to database
     """
     return bd_object_client.insert_client(Standardclient(id =id, name=name, contact= contact,bookings = bookings ,email= email))
     
-@app.post("/api/ADD/premiumclient")
+@app.post("/add/premiumclient")
 async def add_premiumtclient(name:str="name", contact:int=0, bookings:int=0,email:str="email"):
     """
     Add a premium client to database
     """
     return bd_object_client.insert_client(PremiumClient(id =id, name=name, contact= contact,bookings = bookings ,email= email))
 
-@app.post("/api/ADD/booking")
+@app.post("/add/booking")
 def add_booking(cant_positions:int=1, id_flight:int=1, id_client:int=1,type_client:str="type client",type_flight:str="type flight"):
     """
     edit a standart client to database
@@ -76,11 +76,11 @@ def add_booking(cant_positions:int=1, id_flight:int=1, id_client:int=1,type_clie
                                             type_client=type_client, type_flight=type_flight, cost_position=0))
 
 @app.put("/edit/standartclient")
-def edit_client(id:int = 0,name:str="name", contact:int=0, bookings:int=0,email:str="email"):
+def edit_client(id:int = 0,name:str="name", contact:int=0,email:str="email"):
     """
     edit a standart client to database
     """ 
-    return bd_object_client.edit_client(Standardclient(id= id,name=name, contact=contact, bookings=bookings,email=email))
+    return bd_object_client.edit_client(Standardclient(id= id,name=name, contact=contact, bookings=0,email=email))
 
 @app.put("/edit/booking")
 def edit_booking(cant_position:int = 1 , id_booking:int = 1):
@@ -96,11 +96,11 @@ async def add_supplier(id:int=1,name:str="name", contact:int=0,description:str="
     return bd_object_flights.edit_supplier(Supplier(id=id, name=name, contact=contact,description=description))
 
 @app.put("/edit/premiumclient")
-def edit_client(id:int = 0,name:str="name", contact:int=0, bookings:int=0,email:str="email"):
+def edit_client(id:int = 0,name:str="name", contact:int=0, email:str="email"):
     """
     edit a standart client to database
     """ 
-    return bd_object_client.edit_client(PremiumClient(id= id,name=name, contact=contact, bookings=bookings,email=email))
+    return bd_object_client.edit_client(PremiumClient(id= id,name=name, contact=contact, bookings=0,email=email))
 
 @app.put("/edit/offer")
 def edit_offer(id:int = 0,id_flight:int=1, discount:int=1, customer_type:str="customer type",flight_type:str="flight type"):
@@ -110,7 +110,7 @@ def edit_offer(id:int = 0,id_flight:int=1, discount:int=1, customer_type:str="cu
     return bd_object_client.edit_offer(Offer(id= id,id_flight=id_flight, discount=discount, customer_type=customer_type,flight_type=flight_type))
 
 @app.put("/edit/firtsclass")
-def edit_flight(id:int=1, origin:str="origin", destination:str="destintation", date:str = date.today(), positions:int=1, hour:float=1, id_agency:int=1, premium_cost:int=1):
+def edit_flight(id:int=1, origin:str="origin", destination:str="destintation", date:str = date.today(), positions:int=1, hour:float=1, id_agency:int=1, premium_cost:float=1):
     """
     edit a firtsclass to database
     """ 
@@ -118,7 +118,7 @@ def edit_flight(id:int=1, origin:str="origin", destination:str="destintation", d
 
 
 @app.put("/edit/standartclass")
-def edit_flight(id:int=1, origin:str="origin", destination:str="destintation", date:date =date.today(), positions:int=1, hour:float=1, id_agency:int=1, standart_cost:int=1):
+def edit_flight(id:int=1, origin:str="origin", destination:str="destintation", date:date =date.today(), positions:int=1, hour:float=1, id_agency:int=1, standart_cost:float=1):
     """
     edit a standartclass to database
     """ 
@@ -159,33 +159,33 @@ def delete_offer(id:int = 1 ):
     """ 
     return bd_object_client.delete_offer(id= id)
 
-@app.get("/get/clients")
-def show_client(table_name:str = "table name"):
+@app.get("/get/clients/{id}/{table_name}")
+def show_client(id:str = "all or id", table_name:str = "standart_client or premium_client"):
     """
      show clients
     """ 
-    return bd_object_client.show_client(table_name=table_name)
+    return bd_object_client.show_client(id=id,table_name=table_name)
 
-@app.get("/get/flights")
-def show_flight(table_name:str = "table name"):
+@app.get("/get/flights/{id}/{table_name}")
+def show_flight(id:str = "all or id",table_name:str = "standart_class or firts_class"):
     """
     show flights
     """ 
-    return bd_object_flights.show_flight(table_name=table_name)
+    return bd_object_flights.show_flight(id=id, table_name=table_name)
 
-@app.get("/get/offers")
-def show_offers():
+@app.get("/get/offers/{id}")
+def show_offers(id:str = "all or id"):
     """
     show offers
     """ 
-    return bd_object_client.show_offer()
+    return bd_object_client.show_offer(id=id)
 
-@app.get("/get/bookings")
-def show_bookings():
+@app.get("/get/bookings/{id}")
+def show_bookings(id:str = "all or id"):
     """
     show bookings
     """ 
-    return bd_object_booking-show_bookings()
+    return bd_object_booking.show_booking(id=id)
 
 @app.get("/get/premiumclient")
 def show_premiumclient():

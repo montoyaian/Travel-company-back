@@ -51,7 +51,7 @@ class DatabaseControllerClient():
             client.email
             ))
             connection.commit()
-            connection.close()
+            
             clientj = {
             "name": client.name,
             "contact": client.contact,
@@ -82,7 +82,7 @@ class DatabaseControllerClient():
                 offer.flight_type
                 ))
                 connection.commit()
-                connection.close()
+                
                 offerj = {
                     "Id_flight":offer.id_flight,
                     "Discount":offer.discount,
@@ -114,7 +114,7 @@ class DatabaseControllerClient():
                 offer.flight_type
                 ))
                 connection.commit()
-                connection.close()
+                
                 offerj = {
                     "Id_flight":offer.id_flight,
                     "Discount":offer.discount,
@@ -139,22 +139,20 @@ class DatabaseControllerClient():
                 cursor.execute("""UPDATE bawcgrp6dvncdrpjz2lu.standart_client SET 
                 Name = %s,
                 Contact = %s,
-                Bookings = %s,
                 Email = %s
                 WHERE ID = %s""",
                 (
                 client.name,
                 client.contact,
-                client.bookings,
                 client.email,
                 client.id
                 ))
                 connection.commit()
-                connection.close()
+                
                 clientj = {
                 "name": client.name,
                 "contact": client.contact,
-                "bookings": client.bookings,
+
                 "email": client.email,
                 }
                 return clientj
@@ -170,22 +168,19 @@ class DatabaseControllerClient():
                 cursor.execute("""UPDATE bawcgrp6dvncdrpjz2lu.premium_client SET 
                 Name = %s,
                 Contact = %s,
-                Bookings = %s,
                 Email = %s
                 WHERE ID = %s""",
                 (
                 client.name,
                 client.contact,
-                client.bookings,
                 client.email,
                 client.id
                 ))
                 connection.commit()
-                connection.close()
+                
                 clientj = {
                 "name": client.name,
                 "contact": client.contact,
-                "bookings": client.bookings,
                 "email": client.email,
                 }
                 return clientj
@@ -221,7 +216,7 @@ class DatabaseControllerClient():
                     offer.id
                     ))
                     connection.commit()
-                    connection.close()
+                    
                     offerj = {
                         "ID":offer.id,
                         "Id_flight":offer.id_flight,
@@ -253,7 +248,7 @@ class DatabaseControllerClient():
                     offer.id
                     ))
                     connection.commit()
-                    connection.close()
+                    
                     offerj = {
                         "ID":offer.id,
                         "Id_flight":offer.id_flight,
@@ -315,7 +310,7 @@ class DatabaseControllerClient():
                         connection.commit()
                 cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.bookings  WHERE id_client = %s AND Type_client = 'premium client'""", (id,))
                 connection.commit()
-                connection.close()
+                
                 return DELETE_SUCCESS
             else:
                 return{"error":"cliente no encontrado"}
@@ -359,7 +354,7 @@ class DatabaseControllerClient():
                         connection.commit()
                 cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.bookings  WHERE Id_client = %s AND Type_client = 'standart client'""", (id,))
                 connection.commit()
-                connection.close()
+                
                 return DELETE_SUCCESS
             else:
                 return{"error":"cliente no encontrado"}
@@ -379,38 +374,58 @@ class DatabaseControllerClient():
         if result:
             cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.Offers  WHERE id = %s""", (id,))
             connection.commit()
-            connection.close()
+            
             return DELETE_SUCCESS   
         else:
             return {"error":"oferta no encontrada"} 
-    
-    def show_client(self, table_name:str):
+
+    def show_client(self, table_name:str, id: str):
         cursor = connection.cursor()
         try:
             if table_name == "all":
                 cursor.execute('SELECT * FROM bawcgrp6dvncdrpjz2lu.standart_client')
                 rows = cursor.fetchall()
-                cursor.execute('SELECT * bawcgrp6dvncdrpjz2lu.FROM premium_client')
+                cursor.execute('SELECT * FROM bawcgrp6dvncdrpjz2lu.premium_client')
                 rows += cursor.fetchall()
                 connection.commit()
-                connection.close()
                 return rows 
             else:
-                cursor.execute(
-                    '''SELECT * FROM bawcgrp6dvncdrpjz2lu.{}'''.format(table_name))
-                rows = cursor.fetchall()
-                connection.commit()
-                connection.close()
-                return rows
+                if id == "all":
+                    cursor.execute(
+                        '''SELECT * FROM bawcgrp6dvncdrpjz2lu.{}'''.format(table_name))
+                    rows = cursor.fetchall()
+                    connection.commit()
+                    return rows
+                else:
+                    cursor.execute(
+                        '''SELECT * FROM bawcgrp6dvncdrpjz2lu.{} WHERE id = {}'''.format(table_name, id))
+                    rows = cursor.fetchall()
+                    connection.commit()
+                    return rows
         except Error as e:
-            return{"error":"tabla no valida"}      
+            return {"error": "datos no encontrados"}     
 
-    def show_offer(self):
+    def show_offer(self,id:str):
         cursor = connection.cursor()
-        cursor.execute('SELECT * FROM bawcgrp6dvncdrpjz2lu.Offers')
-        rows = cursor.fetchall()      
-        return rows         
-    
+        if id == "all":
+            cursor.execute(
+                '''SELECT * FROM bawcgrp6dvncdrpjz2lu.Offers''')
+            rows = cursor.fetchall()
+            connection.commit()
+            return rows
+        else:
+            try:
+                cursor.execute(
+                '''SELECT * FROM bawcgrp6dvncdrpjz2lu.Offers WHERE id = {}'''.format(id))
+                rows = cursor.fetchone()
+                connection.commit()
+                return rows
+            except:
+                {"message" : "datos no validos"}
+        
+        
+        
+        
     def premium_clients(self):
         cursor = connection.cursor()
         cursor.execute(
@@ -455,7 +470,7 @@ class DatabaseControllerClient():
             connection.commit()
         cursor.execute('SELECT * FROM bawcgrp6dvncdrpjz2lu.premium_client')
         rows = cursor.fetchall()
-        connection.close()
+        
         return(rows)            
 
  

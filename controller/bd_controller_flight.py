@@ -44,7 +44,7 @@ class DatabaseControllerFlight():
                 flight.premium_cost,
                 ))
                     connection.commit()
-                    connection.close()
+                    
                     flightj = {
                     "origin": flight.origin,
                     "destination": flight.destination,
@@ -77,7 +77,7 @@ class DatabaseControllerFlight():
                     flight.standart_cost,
                     ))
                     connection.commit()
-                    connection.close()
+                    
                     flightj = {
                     "origin": flight.origin,
                     "destination": flight.destination,
@@ -106,7 +106,6 @@ class DatabaseControllerFlight():
         supplier.description,
         ))
         connection.commit()
-        connection.close()
         supplierj = {
         "name": supplier.name,
         "contact": supplier.contact,
@@ -137,7 +136,6 @@ class DatabaseControllerFlight():
         supplier.id,
         ))
         connection.commit()
-        connection.close()
         supplierj = {
         "id": supplier.id,
         "name": supplier.name,
@@ -165,7 +163,7 @@ class DatabaseControllerFlight():
                         """UPDATE bawcgrp6dvncdrpjz2lu.standart_class SET
                         Origin=%s,
                         Destination=%s,
-                        Date=strftime('%Y-%m-%d', %s),
+                        Date= %s,
                         Positions=%s,
                         Hour=%s,
                         Id_agency=%s,
@@ -199,7 +197,7 @@ class DatabaseControllerFlight():
                         "id_agency": updated_flight[6],
                         "standart_cost": updated_flight[7]
                     }
-                    connection.close()
+                    
                     return updated_flight_dict
                 else:
                     return{"error": "vuelo no encontrado"}
@@ -215,21 +213,21 @@ class DatabaseControllerFlight():
                         """UPDATE bawcgrp6dvncdrpjz2lu.firts_class SET
                         Origin=%s,
                         Destination=%s,
-                        Date=strftime('%Y-%m-%d', %s),
+                        Date=%s,
                         Positions=%s,
                         Hour=%s,
                         Id_agency=%s,
                         premium_cost=%s
                         WHERE id = %s""",
                         (
-                            flight.origin,
-                            flight.destination,
-                            flight.date,
-                            flight.positions,
-                            flight.hour,
-                            flight.id_agency,
-                            flight.premium_cost,
-                            flight.id,
+                        flight.origin,
+                        flight.destination,
+                        flight.date,
+                        flight.positions,
+                        flight.hour,
+                        flight.id_agency,
+                        flight.premium_cost,
+                        flight.id,
                         ),
                     )
                     connection.commit()
@@ -249,11 +247,10 @@ class DatabaseControllerFlight():
                         "id_agency": updated_flight[6],
                         "premium_cost": updated_flight[7]
                     }
-                    connection.close()
+                    
                     return updated_flight_dict
-
-            else:
-                return{"error": "vuelo no encontrado"}
+                else:
+                    return {"error": "vuelo no encontrado"}
         else:
             return{"error": "proveedor no encontrado"}
                         
@@ -271,28 +268,27 @@ class DatabaseControllerFlight():
             result = cursor.fetchone()
             if result:
                 cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.firts_class WHERE id = %s""", (id,))
-                cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.Bookings WHERE Id_flight= %s AND Type_flight = 'firts class'""", (id,))
+                cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.bookings WHERE Id_flight= %s AND Type_flight = 'firts class'""", (id,))
                 cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.Offers WHERE Id_flight = %s""", (id,))
                 connection.commit()
-                connection.close()
                 return DELETE_SUCCESS
             else:
                 return{"error": "vuelo no encontrado"}            
         elif (class_type == "standart class"):
             cursor.execute(
-            """SELECT * FROM bawcgrp6dvncdrpjz2lu.firts_class WHERE id = %s""",
+            """SELECT * FROM bawcgrp6dvncdrpjz2lu.standart_class WHERE id = %s""",
             (id,),
             )
             result = cursor.fetchone()
             if result:
                 cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.standart_class WHERE id = %s""", (id,))
-                cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.Bookings WHERE Id_flight= %s AND Type_flight = 'standart class'""", (id,))
+                cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.bookings WHERE Id_flight= %s AND Type_flight = 'standart class'""", (id,))
                 cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.Offers WHERE Id_flight = %s""", (id,))
                 connection.commit()
-                connection.close()
+                
                 return DELETE_SUCCESS
             else:
-                {"error": "vuelo no encontrado"} 
+                return{"error": "vuelo no encontrado"} 
         else:
             return {"error":"tipo de vuelo no encontrado"}
     
@@ -312,13 +308,13 @@ class DatabaseControllerFlight():
             cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.firts_class  WHERE ID_agency = %s""", (id,))
             cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.standart_class  WHERE ID_agency = %s""", (id,))
             connection.commit()
-            connection.close()          
+                      
             return DELETE_SUCCESS
         else:
             return {"error":"proveedor no encontrado"}        
             
-    def show_flight(self, table_name:str ):
-
+    def show_flight(self, table_name:str,id:str ):
+        cursor = connection.cursor()
         try:
             if table_name == "all":
                 cursor.execute('SELECT * FROM bawcgrp6dvncdrpjz2lu.firts_class')
@@ -326,21 +322,38 @@ class DatabaseControllerFlight():
                 cursor.execute('SELECT * FROM bawcgrp6dvncdrpjz2lu.standart_class')
                 rows += cursor.fetchall()
                 connection.commit()
-                connection.close()
+                
                 return rows 
             else:
+                if id == "all":
+                    cursor.execute(
+                        '''SELECT * FROM bawcgrp6dvncdrpjz2lu.{}'''.format(table_name))
+                    rows = cursor.fetchall()
+                    connection.commit()
+                    return rows
+                else:
+                    cursor.execute(
+                        '''SELECT * FROM bawcgrp6dvncdrpjz2lu.{} WHERE id = {}'''.format(table_name, id))
+                    rows = cursor.fetchall()
+                    connection.commit()
+                    return rows
+
+        except:
+            return{"message":"datos no encontrados"}
+
+    def show_supplier(self,id:str):
+        cursor = connection.cursor()
+        if id == "all":
+            cursor.execute(
+            '''SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier''')
+            rows = cursor.fetchall()
+            connection.commit()
+            return rows
+        else:
+            try:
                 cursor.execute(
-                    '''SELECT * FROM bawcgrp6dvncdrpjz2lu.{}'''.format(table_name))
+                '''SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = {}'''.format(id))
                 rows = cursor.fetchall()
                 connection.commit()
-                connection.close()
-                return rows
-        except:
-            return{"error":"tabla no valida"}
-
-    def show_supplier(self):
-        cursor = connection.cursor()
-        cursor.execute('SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier')
-        rows = cursor.fetchall()      
-        return rows 
-    
+            except:
+                {"message" : "datos no validos"}   
