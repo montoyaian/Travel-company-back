@@ -183,8 +183,8 @@ def show_offers(id:str = "all or id"):
     """ 
     return bd_object_client.show_offer(id=id)
 
-@app.get("/get/bill/{id}")
-def show_bill(id:str = "all or id"):
+@app.get("/get/supplier/{id}")
+def show_supplier(id:str = "all or id"):
     """
     show bill
     """ 
