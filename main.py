@@ -91,7 +91,7 @@ def edit_booking(cant_position:int = 1 , id_booking:int = 1):
     edit a standart client to database
     """ 
     return bd_object_booking.edit_booking(cant_position, id_booking)
-@app.put("/api/edit/supplier")
+@app.put("/edit/supplier")
 async def add_supplier(id:int=1,name:str="name", contact:int=0,description:str="description"):
     """
     edit supplier to database
@@ -186,7 +186,7 @@ def show_offers(id:str = "all or id"):
 @app.get("/get/supplier/{id}")
 def show_supplier(id:str = "all or id"):
     """
-    show bill
+    show supplier
     """ 
     return bd_object_flights.show_supplier(id=id)
 
