@@ -21,4 +21,4 @@ class Firtsclass(Flight):
                 "positions": self.positions,
                 "hour": self.hour,
                 "id_agency": self.id_agency,
-                "premium_flight": self.__premium_cost}
+                "premium_cost": self.premium_cost}

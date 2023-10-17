@@ -1,5 +1,4 @@
 from Classes.first_class import Firtsclass
-from Classes.economic_class import Economiclass
 from Classes.standart_class import Standartclass
 from Classes.supplier import Supplier
 import mysql.connector
@@ -15,7 +14,7 @@ class DatabaseControllerFlight():
     This class is used to connect to the database and execute queries
     """
 
-    def insert_flight(self, flight: Firtsclass or Economiclass or Standartclass):
+    def insert_flight(self, flight: Firtsclass or Standartclass):
         cursor = connection.cursor()
         cursor.execute(
         """SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = %s""",

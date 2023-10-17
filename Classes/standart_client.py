@@ -5,8 +5,8 @@ class Standardclient(Client):
         super().__init__(id, name, contact,bookings,email)
          
     def __str__(self):
-        return {"id": self.__id,
-                "name": self.__name,
-                "contact": self.__contact,
-                "bookings": self.__bookings,
-                "email": self.__email}
+        return {"id": self.id,
+                "name": self.name,
+                "contact": self.contact,
+                "bookings": self.bookings,
+                "email": self.email}

@@ -4,7 +4,6 @@ from datetime import date
 from controller.bd_controller_flight import DatabaseControllerFlight
 from controller.bd_controller_clients import DatabaseControllerClient
 from Classes.first_class import Firtsclass
-from Classes.economic_class import Economiclass
 from Classes.standart_class import Standartclass
 from Classes.standart_client import Standardclient
 from Classes.premium_client import PremiumClient

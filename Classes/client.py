@@ -37,7 +37,7 @@ class Client:
     def email(self):
         return self.__email
     @email.setter
-    def bookings(self, new_email):
+    def email(self, new_email):
         self.__email = new_email
                 
     def __str__(self):
