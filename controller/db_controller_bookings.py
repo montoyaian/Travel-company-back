@@ -16,7 +16,6 @@ class DatabaseControllerBokings():
         if booking.type_flight =="standart class":
             cursor.execute("""SELECT * FROM bawcgrp6dvncdrpjz2lu.standart_class WHERE ID= %s""", (booking.id_flight,))
             flight = cursor.fetchone()
-            print(flight[4])
             if flight and flight[4]>=booking.cant_positions:
                 if booking.type_client == "standart client":
                     cursor.execute("""SELECT * FROM bawcgrp6dvncdrpjz2lu.Offers WHERE Id_flight= %s AND 
@@ -70,14 +69,26 @@ class DatabaseControllerBokings():
                         new_cost_position,
                         ))
                         connection.commit()
-                        bookingj = {
-                        "cant_position":booking.cant_positions,
-                        "Id_flight": booking.id_flight,
-                        "Id_client": booking.id_client,
-                        "Type_flight": booking.type_flight,
-                        "Type_client": booking.type_client,
-                        "Cost_position": new_cost_position,
-                        }     
+                        if discount == 0:
+                            bookingj = {
+                            "cant_position":booking.cant_positions,
+                            "Id_flight": booking.id_flight,
+                            "Id_client": booking.id_client,
+                            "Type_flight": booking.type_flight,
+                            "Type_client": booking.type_client,
+                            "Cost_position": new_cost_position,
+                            }     
+                        else:
+                            bookingj = {
+                            "cant_position":booking.cant_positions,
+                            "Id_flight": booking.id_flight,
+                            "Id_client": booking.id_client,
+                            "Type_flight": booking.type_flight,
+                            "Type_client": booking.type_client,
+                            "Cost_position": new_cost_position,
+                            "offer" : offer[0],
+                            "discount" : discount
+                            }  
                         return bookingj
                     else:
                         return{"error":"el cliente que realiza la reserva no se ha encontrado"}
@@ -134,14 +145,26 @@ class DatabaseControllerBokings():
                         new_cost_position,
                         )) 
                         connection.commit()  
-                        bookingj = {
-                        "cant_position":booking.cant_positions,
-                        "Id_flight": booking.id_flight,
-                        "Id_client": booking.id_client,
-                        "Type_flight": booking.type_flight,
-                        "Type_client": booking.type_client,
-                        "Cost_position":new_cost_position,
-                        }  
+                        if discount == 0:
+                            bookingj = {
+                            "cant_position":booking.cant_positions,
+                            "Id_flight": booking.id_flight,
+                            "Id_client": booking.id_client,
+                            "Type_flight": booking.type_flight,
+                            "Type_client": booking.type_client,
+                            "Cost_position": new_cost_position,
+                            }     
+                        else:
+                            bookingj = {
+                            "cant_position":booking.cant_positions,
+                            "Id_flight": booking.id_flight,
+                            "Id_client": booking.id_client,
+                            "Type_flight": booking.type_flight,
+                            "Type_client": booking.type_client,
+                            "Cost_position": new_cost_position,
+                            "offer" : offer[0],
+                            "discount" : discount
+                            } 
                         return bookingj
                     else:
                         return{"error":"el cliente que realiza la reserva no se ha encontrado"}
@@ -206,14 +229,26 @@ class DatabaseControllerBokings():
                         new_cost_position,
                         ))   
                         connection.commit()
-                        bookingj = {
-                        "cant_position":booking.cant_positions,
-                        "Id_flight": booking.id_flight,
-                        "Id_client": booking.id_client,
-                        "Type_flight": booking.type_flight,
-                        "Type_client": booking.type_client,
-                        "Cost_position":new_cost_position,
-                        }        
+                        if discount == 0:
+                            bookingj = {
+                            "cant_position":booking.cant_positions,
+                            "Id_flight": booking.id_flight,
+                            "Id_client": booking.id_client,
+                            "Type_flight": booking.type_flight,
+                            "Type_client": booking.type_client,
+                            "Cost_position": new_cost_position,
+                            }     
+                        else:
+                            bookingj = {
+                            "cant_position":booking.cant_positions,
+                            "Id_flight": booking.id_flight,
+                            "Id_client": booking.id_client,
+                            "Type_flight": booking.type_flight,
+                            "Type_client": booking.type_client,
+                            "Cost_position": new_cost_position,
+                            "offer" : offer[0],
+                            "discount" : discount
+                            }       
                         return bookingj
                     else:
                         return{"error":"el cliente que realiza la reserva no se ha encontrado"}
@@ -270,14 +305,26 @@ class DatabaseControllerBokings():
                         new_cost_position,
                         ))
                         connection.commit()                        
-                        bookingj = {
-                        "cant_position":booking.cant_positions,
-                        "Id_flight": booking.id_flight,
-                        "Id_client": booking.id_client,
-                        "Type_flight": booking.type_flight,
-                        "Type_client": booking.type_client,
-                        "Cost_position":new_cost_position,
-                        }  
+                        if discount == 0:
+                            bookingj = {
+                            "cant_position":booking.cant_positions,
+                            "Id_flight": booking.id_flight,
+                            "Id_client": booking.id_client,
+                            "Type_flight": booking.type_flight,
+                            "Type_client": booking.type_client,
+                            "Cost_position": new_cost_position,
+                            }     
+                        else:
+                            bookingj = {
+                            "cant_position":booking.cant_positions,
+                            "Id_flight": booking.id_flight,
+                            "Id_client": booking.id_client,
+                            "Type_flight": booking.type_flight,
+                            "Type_client": booking.type_client,
+                            "Cost_position": new_cost_position,
+                            "offer" : offer[0],
+                            "discount" : discount
+                            }  
                         return bookingj
                     else:
                         return{"error":"el cliente que realiza la reserva no se ha encontrado"}
@@ -285,7 +332,6 @@ class DatabaseControllerBokings():
                     return{"error":"tipo de cliente no encontrado"}               
             else:
                 return{"error":"vuelo no disponible"} 
-        
         else:
             return{"error":"tipo de vuelo no encontrado"}
           
