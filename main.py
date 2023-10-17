@@ -55,7 +55,7 @@ async def add_standartclass(origin:str ="origin", destination:str="destination",
     return bd_object_flights.insert_flight(Standartclass(id=id,origin =origin, destination=destination, date= date, 
                                             positions=positions, hour=hour, id_agency=id_agency, standart_cost=standart_cost))
     
-@app.post("add/standartclient")
+@app.post("/add/standartclient")
 async def add_standartclient(name:str="name", contact:int=0, bookings:int=0,email:str="email"):
     """
     Add a standart client to database
@@ -126,35 +126,35 @@ def edit_flight(id:int=1, origin:str="origin", destination:str="destintation", d
     """ 
     return bd_object_flights.edit_flight(Standartclass(id= id,origin=origin, destination= destination, date = date, positions=positions, hour=hour, id_agency=id_agency, standart_cost=standart_cost))
 
-@app.delete("/delete/flight")
+@app.delete("/delete/flight/{id}/{class_type}")
 def delete_flight(id:int = 1 , class_type:str = "flght type"):
     """
     delete a standartclass to database
     """ 
     return bd_object_flights.delete_flight(id= id, class_type=class_type)
 
-@app.delete("/delete/client")
+@app.delete("/delete/client/{id}/{client_type}")
 def delete_client(id:int = 1 , client_type:str = "client type"):
     """
     delete a standartclient to database
     """ 
     return bd_object_client.delete_client(id= id, client_type=client_type)
 
-@app.delete("/delete/supplier")
+@app.delete("/delete/supplier/{id}")
 def delete_supplier(id:int = 1):
     """
     delete a supplier to database
     """ 
     return bd_object_flights.delete_supplier(id= id)
 
-@app.delete("/delete/booking")
+@app.delete("/delete/booking/{id}")
 def delete_booking(id:int = 1):
     """
     delete a bookings to database
     """ 
     return bd_object_booking.delete_booking(id= id)
 
-@app.delete("/delete/offer")
+@app.delete("/delete/offer/{id}")
 def delete_offer(id:int = 1 ):
     """
     delete a standartclient to database
