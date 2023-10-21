@@ -411,14 +411,12 @@ class DatabaseControllerClient():
             cursor.execute(
                 '''SELECT * FROM bawcgrp6dvncdrpjz2lu.Offers''')
             rows = cursor.fetchall()
-            connection.commit()
             return rows
         else:
             try:
                 cursor.execute(
                 '''SELECT * FROM bawcgrp6dvncdrpjz2lu.Offers WHERE id = {}'''.format(id))
                 rows = cursor.fetchone()
-                connection.commit()
                 return rows
             except:
                 {"message" : "datos no validos"}

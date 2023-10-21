@@ -346,7 +346,6 @@ class DatabaseControllerFlight():
             cursor.execute(
             '''SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier''')
             rows = cursor.fetchall()
-            connection.commit()
             rowsj=[]
             for i in rows:
                 rowj ={
@@ -363,12 +362,11 @@ class DatabaseControllerFlight():
                 cursor.execute(
                 '''SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = {}'''.format(id))
                 rows = cursor.fetchall()
-                connection.commit()
                 rowj ={
                 "id" : rows[0],
                 "name": rows[1],
                 "contact": rows[2],
-                "Description": rows[3],
+                "Description": rows[3]
                 }
                 return rowj
             except:

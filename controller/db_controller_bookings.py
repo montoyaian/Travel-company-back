@@ -531,14 +531,12 @@ class DatabaseControllerBokings():
             cursor.execute(
             '''SELECT * FROM bawcgrp6dvncdrpjz2lu.bookings''')
             rows = cursor.fetchall()
-            connection.commit()
             return rows
         else:
             try:
                 cursor.execute(
                 '''SELECT * FROM bawcgrp6dvncdrpjz2lu.bookings WHERE id = {}'''.format(id))
                 rows = cursor.fetchall()
-                connection.commit()
                 return rows
             except:
                 return{"message" : "datos no validos"}
