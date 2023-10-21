@@ -320,23 +320,45 @@ class DatabaseControllerFlight():
                 rows = cursor.fetchall()
                 cursor.execute('SELECT * FROM bawcgrp6dvncdrpjz2lu.standart_class')
                 rows += cursor.fetchall()
-                connection.commit()
+                rowsj=[]
+                for i in rows:
+                    rowj ={
+                    "id" : i[0],
+                    "name": i[1],
+                    "contact": i[2],
+                    "Description": i[3],
+                    }
+                    rowsj.append(rowj)
+    
+                return rowsj
                 
-                return rows 
             else:
                 if id == "all":
                     cursor.execute(
                         '''SELECT * FROM bawcgrp6dvncdrpjz2lu.{}'''.format(table_name))
                     rows = cursor.fetchall()
-                    connection.commit()
-                    return rows
+                    rowsj=[]
+                    for i in rows:
+                        rowj ={
+                        "id" : i[0],
+                        "name": i[1],
+                        "contact": i[2],
+                        "Description": i[3],
+                        }
+                        rowsj.append(rowj)
+    
+                    return rowsj
                 else:
                     cursor.execute(
                         '''SELECT * FROM bawcgrp6dvncdrpjz2lu.{} WHERE id = {}'''.format(table_name, id))
                     rows = cursor.fetchall()
-                    connection.commit()
-                    return rows
-
+                    rowj = {
+                    "id": rows[0][0],
+                    "name": rows[0][1],
+                    "contact": rows[0][2],
+                    "Description": rows[0][3]
+                    }
+                    return rowj
         except:
             return{"message":"datos no encontrados"}
 
