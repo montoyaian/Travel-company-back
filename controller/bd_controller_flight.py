@@ -368,7 +368,7 @@ class DatabaseControllerFlight():
                 "id" : rows[0],
                 "name": rows[1],
                 "contact": rows[2],
-                "Description": rows[3],
+                "Description": rows[3]
                 }
                 return rowj
             except:
