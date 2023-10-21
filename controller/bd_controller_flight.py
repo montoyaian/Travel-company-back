@@ -363,11 +363,11 @@ class DatabaseControllerFlight():
                 cursor.execute(
                 '''SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = %s''',(id,))
                 rows = cursor.fetchall()
-                rowj ={
-                "id" : rows[0],
-                "name": rows[1],
-                "contact": rows[2],
-                "Description": rows[3]
+                rowj = {
+                    "id": rows[0][0],
+                    "name": rows[0][1],
+                    "contact": rows[0][2],
+                    "Description": rows[0][3]
                 }
                 return rowj
             except:
