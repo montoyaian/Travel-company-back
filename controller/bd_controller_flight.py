@@ -347,13 +347,29 @@ class DatabaseControllerFlight():
             '''SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier''')
             rows = cursor.fetchall()
             connection.commit()
-            return rows
+            rowsj=[]
+            for i in rows:
+                rowj ={
+                "id" : i[0],
+                "name": i[1],
+                "contact": i[2],
+                "Description": i[3],
+                }
+                rowsj.append(rowj)
+  
+            return rowsj
         else:
             try:
                 cursor.execute(
                 '''SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = {}'''.format(id))
                 rows = cursor.fetchall()
                 connection.commit()
-                return rows
+                rowj ={
+                "id" : rows[0],
+                "name": rows[1],
+                "contact": rows[2],
+                "Description": rows[3],
+                }
+                return rowj
             except:
                 {"message" : "datos no validos"}   
