@@ -360,7 +360,7 @@ class DatabaseControllerFlight():
         else:
             try:
                 cursor.execute(
-                '''SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = {}'''.format(id))
+                '''SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = %s''',(id,))
                 rows = cursor.fetchall()
                 rowj ={
                 "id" : rows[0],
