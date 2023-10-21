@@ -359,6 +359,7 @@ class DatabaseControllerFlight():
             return rowsj
         else:
             try:
+                id = int(id)
                 cursor.execute(
                 '''SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = %s''',(id,))
                 rows = cursor.fetchall()
