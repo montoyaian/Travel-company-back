@@ -324,9 +324,13 @@ class DatabaseControllerFlight():
                 for i in rows:
                     rowj ={
                     "id" : i[0],
-                    "name": i[1],
-                    "contact": i[2],
-                    "Description": i[3],
+                    "origin": i[1],
+                    "destination": i[2],
+                    "date": i[3],
+                    "positions": i[4],
+                    "hour": i[5],
+                    "id_agency": i[6],
+                    "premium_cost": i[7]
                     }
                     rowsj.append(rowj)
     
@@ -341,9 +345,13 @@ class DatabaseControllerFlight():
                     for i in rows:
                         rowj ={
                         "id" : i[0],
-                        "name": i[1],
-                        "contact": i[2],
-                        "Description": i[3],
+                        "origin": i[1],
+                        "destination": i[2],
+                        "date": i[3],
+                        "positions": i[4],
+                        "hour": i[5],
+                        "id_agency": i[6],
+                        "premium_cost": i[7]
                         }
                         rowsj.append(rowj)
     
@@ -352,11 +360,15 @@ class DatabaseControllerFlight():
                     cursor.execute(
                         '''SELECT * FROM bawcgrp6dvncdrpjz2lu.{} WHERE id = {}'''.format(table_name, id))
                     rows = cursor.fetchall()
-                    rowj = {
-                    "id": rows[0][0],
-                    "name": rows[0][1],
-                    "contact": rows[0][2],
-                    "Description": rows[0][3]
+                    rowj ={
+                    "id" :  rows[0][0],
+                    "origin": rows[0][1],
+                    "destination": rows[0][2],
+                    "date":rows[0][3],
+                    "positions": rows[0][4],
+                    "hour": rows[0][5],
+                    "id_agency": rows[0][6],
+                    "premium_cost": rows[0][7]
                     }
                     return rowj
         except:

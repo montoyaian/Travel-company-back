@@ -389,11 +389,12 @@ class DatabaseControllerClient():
                 rows += cursor.fetchall()
                 rowsj=[]
                 for i in rows:
-                    rowj ={
-                    "id" : i[0],
+                    rowj = {
+                    "id":i[0],
                     "name": i[1],
                     "contact": i[2],
-                    "Description": i[3],
+                    "bookings": i[3],
+                    "email": i[4],
                     }
                     rowsj.append(rowj)
     
@@ -406,10 +407,11 @@ class DatabaseControllerClient():
                     rowsj=[]
                     for i in rows:
                         rowj ={
-                        "id" : i[0],
+                        "id":i[0],
                         "name": i[1],
                         "contact": i[2],
-                        "Description": i[3],
+                        "bookings": i[3],
+                        "email": i[4],
                         }
                         rowsj.append(rowj)
     
@@ -420,10 +422,11 @@ class DatabaseControllerClient():
                         '''SELECT * FROM bawcgrp6dvncdrpjz2lu.{} WHERE id = {}'''.format(table_name, id))
                     rows = cursor.fetchall()
                     rowj = {
-                        "id": rows[0][0],
-                        "name": rows[0][1],
-                        "contact": rows[0][2],
-                        "Description": rows[0][3]
+                    "id":rows[0][0],
+                    "name": rows[0][1],
+                    "contact": rows[0][2],
+                    "bookings": rows[0][3],
+                    "email": rows[0][4],
                     }
                     return rowj           
         except:
@@ -438,10 +441,11 @@ class DatabaseControllerClient():
             rowsj=[]
             for i in rows:
                 rowj ={
-                "id" : i[0],
-                "name": i[1],
-                "contact": i[2],
-                "Description": i[3],
+                "id":i[0],
+                "Id_flight":i[1],
+                "Discount":i[2],
+                "Customer_type":i[3],
+                "Flight_type":i[4]
                 }
                 rowsj.append(rowj)
     
@@ -452,10 +456,11 @@ class DatabaseControllerClient():
                 '''SELECT * FROM bawcgrp6dvncdrpjz2lu.Offers WHERE id = {}'''.format(id))
                 rows = cursor.fetchone()
                 rowj = {
-                "id": rows[0][0],
-                "name": rows[0][1],
-                "contact": rows[0][2],
-                "Description": rows[0][3]
+                "id":rows[0][0],
+                "Id_flight":rows[0][1],
+                "Discount":rows[0][2],
+                "Customer_type":rows[0][3],
+                "Flight_type":rows[0][4]
                 }
                 return rowj
             except:

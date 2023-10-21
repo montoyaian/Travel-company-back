@@ -534,11 +534,13 @@ class DatabaseControllerBokings():
             rowsj=[]
             for i in rows:
                 rowj ={
-                "id" : i[0],
-                "name": i[1],
-                "contact": i[2],
-                "Description": i[3],
-                }
+                "Cant_position": i[0],
+                "Id_flight":i[2] ,
+                "Id_client": i[3],
+                "Type_flight": i[4],
+                "Type_client": i[5],
+                "Cost_position":i[6]
+                }  
                 rowsj.append(rowj)
     
             return rowsj
@@ -547,12 +549,14 @@ class DatabaseControllerBokings():
                 cursor.execute(
                 '''SELECT * FROM bawcgrp6dvncdrpjz2lu.bookings WHERE id = {}'''.format(id))
                 rows = cursor.fetchall()
-                rowj = {
-                "id": rows[0][0],
-                "name": rows[0][1],
-                "contact": rows[0][2],
-                "Description": rows[0][3]
-                }
+                rowj ={
+                "Cant_position": rows[0],
+                "Id_flight":rows[2] ,
+                "Id_client": rows[3],
+                "Type_flight": rows[4],
+                "Type_client": rows[5],
+                "Cost_position":rows[6]
+                }  
                 return rowj
             except:
                 return{"message" : "datos no validos"}
