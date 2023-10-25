@@ -7,7 +7,7 @@ DELETE_SUCCESS = {"message": "eliminacion completa"}
 
 
 
-connection = mysql.connector.connect(user='uluf7v2ee4qsnl5t',password='t9oXzVw4GBxRQm0VgWGm',host='bawcgrp6dvncdrpjz2lu-mysql.services.clever-cloud.com',database='bawcgrp6dvncdrpjz2lu',port='3306')
+connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
 cursor = connection.cursor()
 class DatabaseControllerFlight():
     """
@@ -17,14 +17,14 @@ class DatabaseControllerFlight():
     def insert_flight(self, flight: Firtsclass or Standartclass):
         cursor = connection.cursor()
         cursor.execute(
-        """SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = %s""",
+        """SELECT * FROM railway.supplier WHERE id = %s""",
         (flight.id_agency,),
         )
         result = cursor.fetchone()
         if result:
             if flight.positions > 0:
                 if isinstance(flight, Firtsclass):
-                    cursor.execute(      """INSERT INTO  bawcgrp6dvncdrpjz2lu.firts_class(
+                    cursor.execute(      """INSERT INTO  railway.firts_class(
                 Origin,
                 Destination,
                 Date,
@@ -57,7 +57,7 @@ class DatabaseControllerFlight():
 
             
                 elif isinstance(flight, Standartclass):
-                    cursor.execute(      """INSERT INTO  bawcgrp6dvncdrpjz2lu.standart_class(
+                    cursor.execute(      """INSERT INTO  railway.standart_class(
                     Origin,
                     Destination,
                     Date,
@@ -94,7 +94,7 @@ class DatabaseControllerFlight():
    
     def insert_supplier(self, supplier:Supplier ):
         cursor = connection.cursor()
-        cursor.execute("""INSERT INTO  bawcgrp6dvncdrpjz2lu.supplier(
+        cursor.execute("""INSERT INTO  railway.supplier(
         Name,
         Contact,
         Description
@@ -117,13 +117,13 @@ class DatabaseControllerFlight():
      
     def edit_supplier(self,supplier:Supplier ):
         cursor = connection.cursor()
-        cursor.execute("""SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE ID = %s""", (supplier.id,))
+        cursor.execute("""SELECT * FROM railway.supplier WHERE ID = %s""", (supplier.id,))
         result = cursor.fetchone()
 
         if not result :
             return {"error":"proveedor no encontrado"}
 
-        cursor.execute("""UPDATE bawcgrp6dvncdrpjz2lu.supplier SET 
+        cursor.execute("""UPDATE railway.supplier SET 
         Name = %s,
         Contact = %s,
         Description = %s
@@ -146,20 +146,20 @@ class DatabaseControllerFlight():
     def edit_flight(self, flight:Standartclass or Firtsclass):
         cursor = connection.cursor()
         cursor.execute(
-        """SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = %s""",
+        """SELECT * FROM railway.supplier WHERE id = %s""",
         (flight.id_agency,),
         )
         result = cursor.fetchone()
         if result:
             if isinstance(flight, Standartclass):
                 cursor.execute(
-                """SELECT * FROM bawcgrp6dvncdrpjz2lu.standart_class WHERE id = %s""",
+                """SELECT * FROM railway.standart_class WHERE id = %s""",
                 (flight.id,),
             )
                 result = cursor.fetchone()
                 if result:
                     cursor.execute(
-                        """UPDATE bawcgrp6dvncdrpjz2lu.standart_class SET
+                        """UPDATE railway.standart_class SET
                         Origin=%s,
                         Destination=%s,
                         Date= %s,
@@ -181,7 +181,7 @@ class DatabaseControllerFlight():
                     )
                     connection.commit()
                     cursor.execute(
-                    """SELECT * FROM bawcgrp6dvncdrpjz2lu.standart_class WHERE id = %s""",
+                    """SELECT * FROM railway.standart_class WHERE id = %s""",
                     (flight.id,),
                     )
                     updated_flight = cursor.fetchone()
@@ -203,13 +203,13 @@ class DatabaseControllerFlight():
            
             elif isinstance(flight, Firtsclass):
                 cursor.execute(
-                """SELECT * FROM bawcgrp6dvncdrpjz2lu.firts_class WHERE id = %s""",
+                """SELECT * FROM railway.firts_class WHERE id = %s""",
                 (flight.id,),
                 )
                 result = cursor.fetchone()
                 if result:
                     cursor.execute(
-                        """UPDATE bawcgrp6dvncdrpjz2lu.firts_class SET
+                        """UPDATE railway.firts_class SET
                         Origin=%s,
                         Destination=%s,
                         Date=%s,
@@ -231,7 +231,7 @@ class DatabaseControllerFlight():
                     )
                     connection.commit()
                     cursor.execute(
-                    """SELECT * FROM bawcgrp6dvncdrpjz2lu.firts_class WHERE id = %s""",
+                    """SELECT * FROM railway.firts_class WHERE id = %s""",
                     (flight.id,),
                     )
                     updated_flight = cursor.fetchone()
@@ -261,28 +261,28 @@ class DatabaseControllerFlight():
         class_type.lower()
         if (class_type == "firts class"):
             cursor.execute(
-            """SELECT * FROM bawcgrp6dvncdrpjz2lu.firts_class WHERE id = %s""",
+            """SELECT * FROM railway.firts_class WHERE id = %s""",
             (id,),
             )
             result = cursor.fetchone()
             if result:
-                cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.firts_class WHERE id = %s""", (id,))
-                cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.bookings WHERE Id_flight= %s AND Type_flight = 'firts class'""", (id,))
-                cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.Offers WHERE Id_flight = %s""", (id,))
+                cursor.execute("""DELETE FROM railway.firts_class WHERE id = %s""", (id,))
+                cursor.execute("""DELETE FROM railway.bookings WHERE Id_flight= %s AND Type_flight = 'firts class'""", (id,))
+                cursor.execute("""DELETE FROM railway.Offers WHERE Id_flight = %s""", (id,))
                 connection.commit()
                 return DELETE_SUCCESS
             else:
                 return{"error": "vuelo no encontrado"}            
         elif (class_type == "standart class"):
             cursor.execute(
-            """SELECT * FROM bawcgrp6dvncdrpjz2lu.standart_class WHERE id = %s""",
+            """SELECT * FROM railway.standart_class WHERE id = %s""",
             (id,),
             )
             result = cursor.fetchone()
             if result:
-                cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.standart_class WHERE id = %s""", (id,))
-                cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.bookings WHERE Id_flight= %s AND Type_flight = 'standart class'""", (id,))
-                cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.Offers WHERE Id_flight = %s""", (id,))
+                cursor.execute("""DELETE FROM railway.standart_class WHERE id = %s""", (id,))
+                cursor.execute("""DELETE FROM railway.bookings WHERE Id_flight= %s AND Type_flight = 'standart class'""", (id,))
+                cursor.execute("""DELETE FROM railway.Offers WHERE Id_flight = %s""", (id,))
                 connection.commit()
                 
                 return DELETE_SUCCESS
@@ -298,14 +298,14 @@ class DatabaseControllerFlight():
         cursor = connection.cursor()
         
         cursor.execute(
-        """SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = %s""",
+        """SELECT * FROM railway.supplier WHERE id = %s""",
         (id,),
         )
         result = cursor.fetchone()
         if result:
-            cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.supplier  WHERE id = %s""", (id,))      
-            cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.firts_class  WHERE ID_agency = %s""", (id,))
-            cursor.execute("""DELETE FROM bawcgrp6dvncdrpjz2lu.standart_class  WHERE ID_agency = %s""", (id,))
+            cursor.execute("""DELETE FROM railway.supplier  WHERE id = %s""", (id,))      
+            cursor.execute("""DELETE FROM railway.firts_class  WHERE ID_agency = %s""", (id,))
+            cursor.execute("""DELETE FROM railway.standart_class  WHERE ID_agency = %s""", (id,))
             connection.commit()
                       
             return DELETE_SUCCESS
@@ -316,9 +316,9 @@ class DatabaseControllerFlight():
         cursor = connection.cursor()
         try:
             if table_name == "all":
-                cursor.execute('SELECT * FROM bawcgrp6dvncdrpjz2lu.firts_class')
+                cursor.execute('SELECT * FROM railway.firts_class')
                 rows = cursor.fetchall()
-                cursor.execute('SELECT * FROM bawcgrp6dvncdrpjz2lu.standart_class')
+                cursor.execute('SELECT * FROM railway.standart_class')
                 rows += cursor.fetchall()
                 rowsj=[]
                 for i in rows:
@@ -339,7 +339,7 @@ class DatabaseControllerFlight():
             else:
                 if id == "all":
                     cursor.execute(
-                        '''SELECT * FROM bawcgrp6dvncdrpjz2lu.{}'''.format(table_name))
+                        '''SELECT * FROM railway.{}'''.format(table_name))
                     rows = cursor.fetchall()
                     rowsj=[]
                     for i in rows:
@@ -358,7 +358,7 @@ class DatabaseControllerFlight():
                     return rowsj
                 else:
                     cursor.execute(
-                        '''SELECT * FROM bawcgrp6dvncdrpjz2lu.{} WHERE id = {}'''.format(table_name, id))
+                        '''SELECT * FROM railway.{} WHERE id = {}'''.format(table_name, id))
                     rows = cursor.fetchall()
                     rowj ={
                     "id" :  rows[0][0],
@@ -378,7 +378,7 @@ class DatabaseControllerFlight():
         cursor = connection.cursor()
         if id == "all":
             cursor.execute(
-            '''SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier''')
+            '''SELECT * FROM railway.supplier''')
             rows = cursor.fetchall()
             rowsj=[]
             for i in rows:
@@ -395,7 +395,7 @@ class DatabaseControllerFlight():
             try:
                 id = int(id)
                 cursor.execute(
-                '''SELECT * FROM bawcgrp6dvncdrpjz2lu.supplier WHERE id = %s''',(id,))
+                '''SELECT * FROM railway.supplier WHERE id = %s''',(id,))
                 rows = cursor.fetchall()
                 rowj = {
                     "id": rows[0][0],
