@@ -25,6 +25,15 @@ app = FastAPI()
 bd_object_flights = DatabaseControllerFlight() 
 bd_object_client = DatabaseControllerClient() 
 bd_object_booking = DatabaseControllerBokings()
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 async def root():
