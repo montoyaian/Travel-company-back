@@ -40,7 +40,7 @@ def edit_client(premium_client : Premium_clientmodel):
     """ 
     return bd_object_client.edit_client(PremiumClient(id = premium_client.id, name=premium_client.name, contact= premium_client.contact,bookings = premium_client.bookings ,email= premium_client.email))
 
-@client_router.delete("/delete/client")
+@client_router.delete("/delete/client/{id}/{client_type}")
 def delete_client(id:int = 1 , client_type:str = "client type"):
     """
     delete a standartclient to database

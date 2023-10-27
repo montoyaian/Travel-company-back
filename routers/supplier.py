@@ -25,7 +25,7 @@ async def edit_supplier(supplier : supplierUpdateModel):
     return bd_object_flights.edit_supplier(Supplier(id=supplier.id, name=supplier.name, contact=supplier.contact,description=supplier.description))
 
 
-@supplier_router.delete("/delete/supplier")
+@supplier_router.delete("/delete/supplier/{id}")
 def delete_supplier(id:int = 1):
     """
     delete a supplier to database

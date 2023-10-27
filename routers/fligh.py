@@ -45,7 +45,7 @@ def edit_flight(standart_class : fly_standart_UpdateModel):
     return bd_object_flights.edit_flight(Standartclass(id= standart_class.id,origin=standart_class.origin, destination= standart_class.destination, date = standart_class.date, positions=standart_class.positions, hour=standart_class.hour, 
                                                        id_agency=standart_class.id_agency, standart_cost=standart_class.standart_cost))
 
-@flight_router.delete("/delete/flight")
+@flight_router.delete("/delete/flight/{id}/{class_type}")
 def delete_flight(id:int = 1 , class_type:str = "flght type"):
     """
     delete a standartclass to database

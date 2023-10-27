@@ -25,7 +25,7 @@ def edit_offer(offer: offerUpdateModel):
     """ 
     return bd_object_client.edit_offer(Offer(id= offer.id,id_flight=offer.id_flight, discount=offer.discount, customer_type=offer.customer_type,flight_type=offer.flight_type))
 
-@offers_router.delete("/delete/offer")
+@offers_router.delete("/delete/offer/{id}")
 def delete_offer(id:int = 1 ):
     """
     delete a standartclient to database

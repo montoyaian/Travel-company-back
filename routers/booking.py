@@ -27,7 +27,7 @@ def edit_booking(booking: BookingUpdateModel):
     return bd_object_booking.edit_booking(booking.cant_position, booking.id_booking)
 
 
-@bookings_router.delete("/delete/booking")
+@bookings_router.delete("/delete/booking/{id}")
 def delete_booking(id:int = 1):
     """
     delete a bookings to database
