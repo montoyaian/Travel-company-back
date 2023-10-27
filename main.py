@@ -22,7 +22,7 @@ from models.booking_model import *
 from models.supplier_model import *
 from models.offers_model import *
 
-app = FastAPI()
+app = FastAPI(title="Travel company API")
 bd_object_flights = DatabaseControllerFlight() 
 bd_object_client = DatabaseControllerClient() 
 bd_object_booking = DatabaseControllerBokings()
@@ -99,17 +99,17 @@ def edit_client(standart_client : Standart_clientUpdateModel):
     return bd_object_client.edit_client(Standardclient(id = standart_client.id, name=standart_client.name, contact= standart_client.contact,bookings = standart_client.bookings ,email= standart_client.email))
 
 @app.put("/edit/booking")
-def edit_booking(cant_position:int = 1 , id_booking:int = 1):
+def edit_booking(booking: BookingUpdateModel):
     """
     edit a standart client to database
     """ 
-    return bd_object_booking.edit_booking(cant_position, id_booking)
+    return bd_object_booking.edit_booking(booking.cant_position, booking.id_booking)
 @app.put("/edit/supplier")
-async def add_supplier(id:int=1,name:str="name", contact:int=0,description:str="description"):
+async def edit_supplier(supplier : supplierUpdateModel):
     """
     edit supplier to database
     """
-    return bd_object_flights.edit_supplier(Supplier(id=id, name=name, contact=contact,description=description))
+    return bd_object_flights.edit_supplier(Supplier(id=supplier.id, name=supplier.name, contact=supplier.contact,description=supplier.description))
 
 @app.put("/edit/premiumclient")
 def edit_client(premium_client : Premium_clientmodel):
