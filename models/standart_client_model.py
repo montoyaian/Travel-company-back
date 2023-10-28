@@ -9,7 +9,5 @@ class Standart_clientmodel (ClientModel):
 
 class Standart_clientUpdateModel (ClientModel):
     
-    id : Optional[int]
-    
     class Config:
         from_attributes = True

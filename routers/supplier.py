@@ -17,12 +17,12 @@ async def add_supplier(supplier:Suppliermodel):
     """
     return bd_object_flights.insert_supplier(Supplier(id=id, name=supplier.name, contact=supplier.contact,description=supplier.description))
         
-@supplier_router.put("/edit/supplier")
-async def edit_supplier(supplier : supplierUpdateModel):
+@supplier_router.put("/edit/supplier/{supplier_id}")
+async def edit_supplier(supplier_id, supplier : supplierUpdateModel):
     """
     edit supplier to database
     """
-    return bd_object_flights.edit_supplier(Supplier(id=supplier.id, name=supplier.name, contact=supplier.contact,description=supplier.description))
+    return bd_object_flights.edit_supplier(Supplier(id=supplier_id, name=supplier.name, contact=supplier.contact,description=supplier.description))
 
 
 @supplier_router.delete("/delete/supplier/{id}")

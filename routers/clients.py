@@ -26,24 +26,24 @@ async def add_premiumclient(premium_client : Premium_clientmodel):
     """
     return bd_object_client.insert_client(PremiumClient(id =0, name= premium_client.name, contact= premium_client.contact,bookings = premium_client.bookings ,email= premium_client.email))
 
-@client_router.put("/edit/standartclient")
-def edit_client(standart_client : Standart_clientUpdateModel):
+@client_router.put("/edit/standartclient/{client_id}")
+def edit_client(client_id, standart_client : Standart_clientUpdateModel):
     """
     edit a standart client to database
     """ 
-    return bd_object_client.edit_client(Standardclient(id = standart_client.id, name=standart_client.name, contact= standart_client.contact,bookings = standart_client.bookings ,email= standart_client.email))
+    return bd_object_client.edit_client(Standardclient(id = client_id, name=standart_client.name, contact= standart_client.contact,bookings = standart_client.bookings ,email= standart_client.email))
 
-@client_router.put("/edit/premiumclient")
-def edit_client(premium_client : Premium_clientmodel):
+@client_router.put("/edit/premiumclient/{client_id}")
+def edit_client(client_id, premium_client : Premium_clientmodel):
     """
-    edit a standart client to database
+    edit a premium client to database
     """ 
-    return bd_object_client.edit_client(PremiumClient(id = premium_client.id, name=premium_client.name, contact= premium_client.contact,bookings = premium_client.bookings ,email= premium_client.email))
+    return bd_object_client.edit_client(PremiumClient(id = client_id, name=premium_client.name, contact= premium_client.contact,bookings = premium_client.bookings ,email= premium_client.email))
 
 @client_router.delete("/delete/client/{id}/{client_type}")
 def delete_client(id:int = 1 , client_type:str = "client type"):
     """
-    delete a standartclient to database
+    delete a client to database
     """ 
     return bd_object_client.delete_client(id= id, client_type=client_type)
 

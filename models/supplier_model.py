@@ -12,6 +12,5 @@ class Suppliermodel (BaseModel):
 
 
 class supplierUpdateModel (Suppliermodel):
-    id : Optional[int]
     class Config:
         from_attributes = True

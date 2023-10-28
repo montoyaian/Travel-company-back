@@ -28,21 +28,21 @@ async def add_standartclass(standart_class : Standart_flight_model):
     return bd_object_flights.insert_flight(Standartclass(id=0,origin =standart_class.origin, destination=standart_class.destination, date= standart_class.date, 
                                             positions=standart_class.positions, hour=standart_class.hour, id_agency=standart_class.id_agency, standart_cost=standart_class.standart_cost))
 
-@flight_router.put("/edit/firtsclass")
-def edit_flight(firts_class : fly_firts_UpdateModel):
+@flight_router.put("/edit/firtsclass/{flight_id}")
+def edit_flight(flight_id,firts_class : fly_firts_UpdateModel):
     """
     edit a firtsclass to database
     """ 
-    return bd_object_flights.edit_flight(Firtsclass(id= firts_class.id,origin=firts_class.origin, destination= firts_class.destination, date = firts_class.date, positions=firts_class.positions, hour=firts_class.hour, 
+    return bd_object_flights.edit_flight(Firtsclass(id= flight_id,origin=firts_class.origin, destination= firts_class.destination, date = firts_class.date, positions=firts_class.positions, hour=firts_class.hour, 
                                                        id_agency=firts_class.id_agency, premium_cost=firts_class.premium_cost))
 
 
-@flight_router.put("/edit/standartclass")
-def edit_flight(standart_class : fly_standart_UpdateModel):
+@flight_router.put("/edit/standartclass/{flight_id}")
+def edit_flight(flight_id, standart_class : fly_standart_UpdateModel):
     """
     edit a standartclass to database
     """ 
-    return bd_object_flights.edit_flight(Standartclass(id= standart_class.id,origin=standart_class.origin, destination= standart_class.destination, date = standart_class.date, positions=standart_class.positions, hour=standart_class.hour, 
+    return bd_object_flights.edit_flight(Standartclass(id= flight_id,origin=standart_class.origin, destination= standart_class.destination, date = standart_class.date, positions=standart_class.positions, hour=standart_class.hour, 
                                                        id_agency=standart_class.id_agency, standart_cost=standart_class.standart_cost))
 
 @flight_router.delete("/delete/flight/{id}/{class_type}")

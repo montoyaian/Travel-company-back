@@ -8,6 +8,5 @@ class Firts_flight_model (FlightModel):
 
 
 class fly_firts_UpdateModel (Firts_flight_model ):
-    id : Optional[int]
     class Config:
         from_attributes = True

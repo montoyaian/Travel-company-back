@@ -15,7 +15,6 @@ class Bookingmodel (BaseModel):
 
 
 class BookingUpdateModel (BaseModel):
-    id : Optional[int]
     cant_positions:Optional[int]
     class Config:
         from_attributes = True

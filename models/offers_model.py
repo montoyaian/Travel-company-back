@@ -13,6 +13,6 @@ class offermodel (BaseModel):
 
 
 class offerUpdateModel (offermodel):
-    id : Optional[int]
+
     class Config:
         from_attributes = True

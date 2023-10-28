@@ -18,17 +18,17 @@ async def add_offers(offer:offermodel):
     return bd_object_client.insert_offer(Offer(id=id, id_flight=offer.id_flight, discount=offer.discount, customer_type=offer.customer_type, flight_type=offer.flight_type))
 
 
-@offers_router.put("/edit/offer")
-def edit_offer(offer: offerUpdateModel):
+@offers_router.put("/edit/offer/{offer_id}")
+def edit_offer(offer_id, offer: offerUpdateModel):
     """
-    edit a standart client to database
+    edit offer to database
     """ 
-    return bd_object_client.edit_offer(Offer(id= offer.id,id_flight=offer.id_flight, discount=offer.discount, customer_type=offer.customer_type,flight_type=offer.flight_type))
+    return bd_object_client.edit_offer(Offer(id= offer_id,id_flight=offer.id_flight, discount=offer.discount, customer_type=offer.customer_type,flight_type=offer.flight_type))
 
 @offers_router.delete("/delete/offer/{id}")
 def delete_offer(id:int = 1 ):
     """
-    delete a standartclient to database
+    delete a offer to database
     """ 
     return bd_object_client.delete_offer(id= id)
 

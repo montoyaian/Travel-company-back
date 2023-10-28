@@ -7,9 +7,7 @@ class Premium_clientmodel (ClientModel):
         from_attributes = True
 
 
-class Premium_clientUpdateModel (ClientModel):
-    
-    id : Optional[int]
+class Premium_clientUpdateModel (ClientModel):   
     
     class Config:
         from_attributes = True

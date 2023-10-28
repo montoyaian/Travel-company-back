@@ -190,6 +190,9 @@ class DatabaseControllerBokings():
                     if client:                    
                         price_position = flight[7]
                         flight_new_positions= flight[4] - booking.cant_positions
+                        print (flight[4])
+                        print (booking.cant_positions)
+                        print (flight_new_positions)
                         cursor.execute(
                         """UPDATE railway.firts_class SET
                         Positions=%s

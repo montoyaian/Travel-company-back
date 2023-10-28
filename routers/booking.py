@@ -13,24 +13,24 @@ bookings_router = APIRouter(
 @bookings_router.post("/add/booking")
 def add_booking(booking : Bookingmodel):
     """
-    edit a booking to database
+    add  booking to database
     """ 
     return bd_object_booking.insert_booking(Booking(id=1, cant_positions=booking.cant_positions, id_flight=booking.id_flight, id_client=booking.id_client,
                                             type_client=booking.type_client, type_flight=booking.type_flight, cost_position=0))
 
 
-@bookings_router.put("/edit/booking")
-def edit_booking(booking: BookingUpdateModel):
+@bookings_router.put("/edit/booking/{booking_id}")
+def edit_booking(booking_id, booking: BookingUpdateModel):
     """
     edit a booking to database
     """ 
-    return bd_object_booking.edit_booking(booking.cant_position, booking.id_booking)
+    return bd_object_booking.edit_booking(booking.cant_positions, booking_id)
 
 
 @bookings_router.delete("/delete/booking/{id}")
 def delete_booking(id:int = 1):
     """
-    delete a bookings to database
+    delete  bookings to database
     """ 
     return bd_object_booking.delete_booking(id= id)
 
