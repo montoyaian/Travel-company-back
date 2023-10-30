@@ -330,7 +330,7 @@ class DatabaseControllerFlight():
                     "positions": i[4],
                     "hour": i[5],
                     "id_agency": i[6],
-                    "premium_cost": i[7]
+                    "cost": i[7]
                     }
                     rowsj.append(rowj)
     
@@ -351,7 +351,7 @@ class DatabaseControllerFlight():
                         "positions": i[4],
                         "hour": i[5],
                         "id_agency": i[6],
-                        "premium_cost": i[7]
+                        "cost": i[7]
                         }
                         rowsj.append(rowj)
     
@@ -368,7 +368,7 @@ class DatabaseControllerFlight():
                     "positions": rows[0][4],
                     "hour": rows[0][5],
                     "id_agency": rows[0][6],
-                    "premium_cost": rows[0][7]
+                    "cost": rows[0][7]
                     }
                     return rowj
         except:
