@@ -15,6 +15,7 @@ class DatabaseControllerFlight():
     """
 
     def insert_flight(self, flight: Firtsclass or Standartclass):
+        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         cursor.execute(
         """SELECT * FROM railway.supplier WHERE id = %s""",
@@ -93,6 +94,7 @@ class DatabaseControllerFlight():
             return{"error":"proveedor no encontrado"}
    
     def insert_supplier(self, supplier:Supplier ):
+        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         cursor.execute("""INSERT INTO  railway.supplier(
         Name,
@@ -116,6 +118,7 @@ class DatabaseControllerFlight():
 
      
     def edit_supplier(self,supplier:Supplier ):
+        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         cursor.execute("""SELECT * FROM railway.supplier WHERE ID = %s""", (supplier.id,))
         result = cursor.fetchone()
@@ -144,6 +147,7 @@ class DatabaseControllerFlight():
         return supplierj
 
     def edit_flight(self, flight:Standartclass or Firtsclass):
+        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         cursor.execute(
         """SELECT * FROM railway.supplier WHERE id = %s""",
@@ -254,6 +258,7 @@ class DatabaseControllerFlight():
             return{"error": "proveedor no encontrado"}
                         
     def delete_flight(self, id: int, class_type: str):
+        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
         """
         Delete a flight from database
         """
@@ -292,6 +297,7 @@ class DatabaseControllerFlight():
             return {"error":"tipo de vuelo no encontrado"}
     
     def delete_supplier(self, id:int):
+        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
         """
         Delete a supplier from database
         """
@@ -313,6 +319,7 @@ class DatabaseControllerFlight():
             return {"error":"proveedor no encontrado"}        
             
     def show_flight(self, table_name:str,id:str ):
+        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         try:
             if table_name == "all":
@@ -375,6 +382,7 @@ class DatabaseControllerFlight():
             return{"message":"datos no encontrados"}
 
     def show_supplier(self,id:str):
+        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         if id == "all":
             cursor.execute(

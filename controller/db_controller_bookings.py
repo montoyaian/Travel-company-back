@@ -12,6 +12,7 @@ class DatabaseControllerBokings():
     This class is used to connect to the database and execute queries
     """
     def insert_booking(self, booking: Booking):
+        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         if booking.type_flight =="standart class":
             cursor.execute("""SELECT * FROM railway.standart_class WHERE ID= %s""", (booking.id_flight,))
@@ -336,6 +337,7 @@ class DatabaseControllerBokings():
             return{"error":"tipo de vuelo no encontrado"}
           
     def edit_booking(self, cant_position:int, id_booking:int):
+        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         cursor.execute("""SELECT * FROM railway.bookings WHERE ID= %s""", (id_booking,))
         booking = cursor.fetchone()
@@ -419,6 +421,7 @@ class DatabaseControllerBokings():
             return{"error":"reserva no encontrada"}
     
     def delete_booking(self, id:int):
+        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         cursor.execute("""SELECT * FROM railway.bookings WHERE ID= %s""", (id,))
         booking = cursor.fetchone()
@@ -526,6 +529,7 @@ class DatabaseControllerBokings():
             return{"error":"reserva no encontrada"}
                     
     def show_booking(self,id:str):
+        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         if id == "all":
             cursor.execute(
@@ -564,6 +568,7 @@ class DatabaseControllerBokings():
                 return{"message" : "datos no validos"}
     
     def show_bill(self, id_booking:int, payment_method:str):
+        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         cursor.execute("""SELECT * FROM railway.bookings WHERE ID= %s""", (id_booking,))
         booking = cursor.fetchone() 
