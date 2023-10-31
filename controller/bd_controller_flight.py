@@ -1,6 +1,7 @@
 from Classes.first_class import Firtsclass
 from Classes.standart_class import Standartclass
 from Classes.supplier import Supplier
+from datetime import date
 import mysql.connector
 
 DELETE_SUCCESS = {"message": "eliminacion completa"}
@@ -24,70 +25,73 @@ class DatabaseControllerFlight():
         result = cursor.fetchone()
         if result:
             if flight.positions > 0:
-                if isinstance(flight, Firtsclass):
-                    cursor.execute(      """INSERT INTO  railway.firts_class(
-                Origin,
-                Destination,
-                Date,
-                Positions,
-                Hour,
-                Id_agency,
-                Premium_cost
-                ) VALUES (%s, %s, %s, %s, %s, %s, %s)""",
-                (
-                flight.origin,
-                flight.destination,
-                flight.date,
-                flight.positions,
-                flight.hour,
-                flight.id_agency,
-                flight.premium_cost,
-                ))
-                    connection.commit()
-                    
-                    flightj = {
-                    "origin": flight.origin,
-                    "destination": flight.destination,
-                    "date": flight.date,
-                    "positions": flight.positions,
-                    "hour": flight.hour,
-                    "id_agency": flight.id_agency,
-                    "premium_cost": flight.premium_cost
-                    }
-                    return flightj
+                if flight.date >= date.today():
+                    if isinstance(flight, Firtsclass):
+                        cursor.execute(      """INSERT INTO  railway.firts_class(
+                        Origin,
+                        Destination,
+                        Date,
+                        Positions,
+                        Hour,
+                        Id_agency,
+                        Premium_cost
+                        ) VALUES (%s, %s, %s, %s, %s, %s, %s)""",
+                        (
+                        flight.origin,
+                        flight.destination,
+                        flight.date,
+                        flight.positions,
+                        flight.hour,
+                        flight.id_agency,
+                        flight.premium_cost,
+                        ))
+                        connection.commit()
+                        
+                        flightj = {
+                        "origin": flight.origin,
+                        "destination": flight.destination,
+                        "date": flight.date,
+                        "positions": flight.positions,
+                        "hour": flight.hour,
+                        "id_agency": flight.id_agency,
+                        "premium_cost": flight.premium_cost
+                        }
+                        return flightj
 
             
-                elif isinstance(flight, Standartclass):
-                    cursor.execute(      """INSERT INTO  railway.standart_class(
-                    Origin,
-                    Destination,
-                    Date,
-                    Positions,
-                    Hour,
-                    Id_agency,
-                    Standart_cost
-                    ) VALUES (%s, %s, %s, %s, %s, %s, %s)""",
-                    (
-                    flight.origin,
-                    flight.destination,
-                    flight.date,
-                    flight.positions,
-                    flight.hour,
-                    flight.id_agency,
-                    flight.standart_cost,
-                    ))
-                    connection.commit()
-                    
-                    flightj = {
-                    "origin": flight.origin,
-                    "destination": flight.destination,
-                    "date": flight.date,
-                    "positions": flight.positions,
-                    "hour": flight.hour,
-                    "id_agency": flight.id_agency,
-                    "standart_cost": flight.standart_cost
-                    }
-                    return flightj    
+                    elif isinstance(flight, Standartclass):
+                        cursor.execute(      """INSERT INTO  railway.standart_class(
+                        Origin,
+                        Destination,
+                        Date,
+                        Positions,
+                        Hour,
+                        Id_agency,
+                        Standart_cost
+                        ) VALUES (%s, %s, %s, %s, %s, %s, %s)""",
+                        (
+                        flight.origin,
+                        flight.destination,
+                        flight.date,
+                        flight.positions,
+                        flight.hour,
+                        flight.id_agency,
+                        flight.standart_cost,
+                        ))
+                        connection.commit()
+                        
+                        flightj = {
+                        "origin": flight.origin,
+                        "destination": flight.destination,
+                        "date": flight.date,
+                        "positions": flight.positions,
+                        "hour": flight.hour,
+                        "id_agency": flight.id_agency,
+                        "standart_cost": flight.standart_cost
+                        }
+                        return flightj    
+                else:
+                    return{"error": "fecha no valida"}
             else:
                 return{"error": "cantidad de puestos no aceptada"}
         else:
@@ -159,49 +163,56 @@ class DatabaseControllerFlight():
                 cursor.execute(
                 """SELECT * FROM railway.standart_class WHERE id = %s""",
                 (flight.id,),
-            )
+                 )
                 result = cursor.fetchone()
                 if result:
-                    cursor.execute(
-                        """UPDATE railway.standart_class SET
-                        Origin=%s,
-                        Destination=%s,
-                        Date= %s,
-                        Positions=%s,
-                        Hour=%s,
-                        Id_agency=%s,
-                        Standart_cost=%s
-                        WHERE id = %s""",
-                        (
-                            flight.origin,
-                            flight.destination,
-                            flight.date,
-                            flight.positions,
-                            flight.hour,
-                            flight.id_agency,
-                            flight.standart_cost,
-                            flight.id,
-                        ),
-                    )
-                    connection.commit()
-                    cursor.execute(
-                    """SELECT * FROM railway.standart_class WHERE id = %s""",
-                    (flight.id,),
-                    )
-                    updated_flight = cursor.fetchone()
+                    if flight.positions > 0:
+                        if flight.date >= date.today():
+                            cursor.execute(
+                                """UPDATE railway.standart_class SET
+                                Origin=%s,
+                                Destination=%s,
+                                Date= %s,
+                                Positions=%s,
+                                Hour=%s,
+                                Id_agency=%s,
+                                Standart_cost=%s
+                                WHERE id = %s""",
+                                (
+                                    flight.origin,
+                                    flight.destination,
+                                    flight.date,
+                                    flight.positions,
+                                    flight.hour,
+                                    flight.id_agency,
+                                    flight.standart_cost,
+                                    flight.id,
+                                ),
+                            )
+                            connection.commit()
+                            cursor.execute(
+                            """SELECT * FROM railway.standart_class WHERE id = %s""",
+                            (flight.id,),
+                            )
+                            updated_flight = cursor.fetchone()
 
-                    updated_flight_dict = {
-                        "id": updated_flight[0], 
-                        "origin": updated_flight[1],
-                        "destination": updated_flight[2],
-                        "date": updated_flight[3],
-                        "positions": updated_flight[4],
-                        "hour": updated_flight[5],
-                        "id_agency": updated_flight[6],
-                        "standart_cost": updated_flight[7]
-                    }
-                    
-                    return updated_flight_dict
+                            updated_flight_dict = {
+                                "id": updated_flight[0], 
+                                "origin": updated_flight[1],
+                                "destination": updated_flight[2],
+                                "date": updated_flight[3],
+                                "positions": updated_flight[4],
+                                "hour": updated_flight[5],
+                                "id_agency": updated_flight[6],
+                                "standart_cost": updated_flight[7]
+                            }
+                            
+                            return updated_flight_dict
+                        
+                        else:
+                            return{"error": "fecha no valida"}
+                    else:
+                        return{"error": "cantidad de puestos no aceptada"}
                 else:
                     return{"error": "vuelo no encontrado"}
            
@@ -212,48 +223,54 @@ class DatabaseControllerFlight():
                 )
                 result = cursor.fetchone()
                 if result:
-                    cursor.execute(
-                        """UPDATE railway.firts_class SET
-                        Origin=%s,
-                        Destination=%s,
-                        Date=%s,
-                        Positions=%s,
-                        Hour=%s,
-                        Id_agency=%s,
-                        premium_cost=%s
-                        WHERE id = %s""",
-                        (
-                        flight.origin,
-                        flight.destination,
-                        flight.date,
-                        flight.positions,
-                        flight.hour,
-                        flight.id_agency,
-                        flight.premium_cost,
-                        flight.id,
-                        ),
-                    )
-                    connection.commit()
-                    cursor.execute(
-                    """SELECT * FROM railway.firts_class WHERE id = %s""",
-                    (flight.id,),
-                    )
-                    updated_flight = cursor.fetchone()
+                    if flight.positions > 0:
+                        if flight.date >= date.today():
+                            cursor.execute(
+                                """UPDATE railway.firts_class SET
+                                Origin=%s,
+                                Destination=%s,
+                                Date=%s,
+                                Positions=%s,
+                                Hour=%s,
+                                Id_agency=%s,
+                                premium_cost=%s
+                                WHERE id = %s""",
+                                (
+                                flight.origin,
+                                flight.destination,
+                                flight.date,
+                                flight.positions,
+                                flight.hour,
+                                flight.id_agency,
+                                flight.premium_cost,
+                                flight.id,
+                                ),
+                            )
+                            connection.commit()
+                            cursor.execute(
+                            """SELECT * FROM railway.firts_class WHERE id = %s""",
+                            (flight.id,),
+                            )
+                            updated_flight = cursor.fetchone()
 
-                    updated_flight_dict = {
-                        "id": updated_flight[0],  
-                        "origin": updated_flight[1],
-                        "destination": updated_flight[2],
-                        "date": updated_flight[3],
-                        "positions": updated_flight[4],
-                        "hour": updated_flight[5],
-                        "id_agency": updated_flight[6],
-                        "premium_cost": updated_flight[7]
-                    }
-                    
-                    return updated_flight_dict
+                            updated_flight_dict = {
+                                "id": updated_flight[0],  
+                                "origin": updated_flight[1],
+                                "destination": updated_flight[2],
+                                "date": updated_flight[3],
+                                "positions": updated_flight[4],
+                                "hour": updated_flight[5],
+                                "id_agency": updated_flight[6],
+                                "premium_cost": updated_flight[7]
+                            }
+                            
+                            return updated_flight_dict
+                        else:
+                            return{"error": "fecha no valida"}
+                    else:
+                        return{"error": "cantidad de puestos no aceptada"}
                 else:
-                    return {"error": "vuelo no encontrado"}
+                    return{"error": "vuelo no encontrado"}
         else:
             return{"error": "proveedor no encontrado"}
                         
