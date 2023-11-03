@@ -3,6 +3,10 @@ from Classes.premium_client import PremiumClient
 from Classes.offers import Offer
 import mysql.connector
 from mysql.connector import Error
+from fastapi.encoders import jsonable_encoder
+import jwt
+
+from models.client_model import *
 
 connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
 cursor = connection.cursor()
@@ -12,6 +16,26 @@ class DatabaseControllerClient():
     """
     This class is used to connect to the database and execute queries
     """
+    def login(self, login_item:loginModel ):
+
+        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
+        cursor = connection.cursor()
+        SECRET_KEY = "travelcompany123456789"
+        ALGORITHM = "HS256"
+        ACCESS_TOKEN_EXPIRE_MINUTES = 800 
+        cursor.execute('SELECT * FROM railway.standart_client')
+        rows = cursor.fetchall()
+        data = jsonable_encoder(login_item)
+        for i in rows:
+            if (i[1] == data['name']  ) and (i[5] == data['password']):
+                encoded_jwt = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
+                return {'token': encoded_jwt }
+                
+            else:
+                continue
+        return {"error" : "inicio de seccion fallido"}
+        
+        
     def insert_client(self, client: Standardclient or PremiumClient):
         connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
@@ -21,13 +45,15 @@ class DatabaseControllerClient():
             Name,
             Contact,
             Bookings,
-            Email
-            ) VALUES (%s, %s, %s, %s )''',
+            Email,
+            Password
+            ) VALUES (%s, %s, %s, %s, %s )''',
             (   
             client.name,
             client.contact,
             0,
-            client.email
+            client.email,
+            client.password
             ))
             connection.commit()
             clientj = {
@@ -43,13 +69,15 @@ class DatabaseControllerClient():
             Name,
             Contact,
             Bookings,
-            Email
-            ) VALUES (%s, %s, %s, %s )''',
+            Email,
+            Password
+            ) VALUES (%s, %s, %s, %s, %s )''',
             (   
             client.name,
             client.contact,
             0,
-            client.email
+            client.email,
+            client.password
             ))
             connection.commit()
             
@@ -139,15 +167,17 @@ class DatabaseControllerClient():
         )
             result = cursor.fetchone()
             if result:
-                cursor.execute("""UPDATE railway.standart_client SET 
+                cursor.execute("""UPDATE railway.premium_client SET 
                 Name = %s,
                 Contact = %s,
-                Email = %s
+                Email = %s,
+                Password = %s
                 WHERE ID = %s""",
                 (
                 client.name,
                 client.contact,
                 client.email,
+                client.password,
                 client.id
                 ))
                 connection.commit()
@@ -171,12 +201,14 @@ class DatabaseControllerClient():
                 cursor.execute("""UPDATE railway.premium_client SET 
                 Name = %s,
                 Contact = %s,
-                Email = %s
+                Email = %s,
+                Password = %s
                 WHERE ID = %s""",
                 (
                 client.name,
                 client.contact,
                 client.email,
+                client.password,
                 client.id
                 ))
                 connection.commit()

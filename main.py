@@ -1,16 +1,15 @@
 from fastapi import Depends, FastAPI, Response, status  
-from fastapi.security import HTTPBearer
 from starlette.middleware.cors import CORSMiddleware
-from fastapi import Depends, FastAPI, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from routers.clients import client_router
 from routers.supplier import supplier_router
 from routers.offers import offers_router
 from routers.fligh import flight_router
 from routers.booking import bookings_router
+from models.client_model import *
+from controller.bd_controller_clients import DatabaseControllerClient
 
 app = FastAPI(title="Travel company API")
-
+bd_object_client = DatabaseControllerClient() 
 origins = ["*"]
 
 app.add_middleware(
@@ -32,7 +31,12 @@ app.include_router(supplier_router)
 async def root():
     return {"Hello": "Travel company API"}
 
-
+@app.post("/login")
+async def login(data : loginModel):
+    """
+    Login app
+    """
+    return bd_object_client.login(data)
 
 
 

@@ -1,10 +1,11 @@
 class Client:
-    def __init__(self, id:int, name:str, contact:int, bookings:int,email:str):
+    def __init__(self, id:int, name:str, contact:int, bookings:int,email:str,password:str):   
         self.__id = id
         self.__name = name
         self.__contact = contact
         self.__bookings = bookings
-        self.__email = email       
+        self.__email = email 
+        self.__password = password     
         
     @property
     def id(self):
@@ -39,7 +40,15 @@ class Client:
     @email.setter
     def email(self, new_email):
         self.__email = new_email
-                
+        
+    @property
+    def password(self):
+        return self.__password
+    @password.setter
+    def password(self, new_password):
+        self.__password = new_password   
+        
+                     
     def __str__(self):
         return {"id": self.__id,
                 "name": self.__name,

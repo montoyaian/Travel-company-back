@@ -8,3 +8,8 @@ class ClientModel (BaseModel):
     contact: Optional[int]
     bookings: Optional[int]
     email: Optional[str]
+    password: Optional[str]
+    
+class loginModel(BaseModel):
+    name : Optional[str]
+    password: Optional[str]
