@@ -33,7 +33,7 @@ class DatabaseControllerClient():
                 
             else:
                 continue
-        return {"error" : "inicio de seccion fallido"}
+        return {"error" : "inicio de sesion fallido"}
         
         
     def insert_client(self, client: Standardclient or PremiumClient):
@@ -123,10 +123,10 @@ class DatabaseControllerClient():
             else:
                 return{"error": "id de vuelo no encotrado"}
             
-        elif offer.flight_type == "firts class":
+        elif offer.flight_type == "first class":
             cursor = connection.cursor()
             cursor.execute(
-            """SELECT * FROM railway.firts_class WHERE id = %s""",
+            """SELECT * FROM railway.first_class WHERE id = %s""",
             (offer.id_flight,),
             )
             result = cursor.fetchone()
@@ -263,9 +263,9 @@ class DatabaseControllerClient():
                     return offerj
                 else:
                     return{"error": "id de vuelo no encotrado"}            
-            elif offer.flight_type == "firts class":
+            elif offer.flight_type == "first class":
                 cursor.execute(
-                """SELECT * FROM railway.firts_class WHERE id = %s""",
+                """SELECT * FROM railway.first_class WHERE id = %s""",
                 (offer.id_flight,),
                 )
                 result = cursor.fetchone()
@@ -332,11 +332,11 @@ class DatabaseControllerClient():
                         )
                         connection.commit()   
                     else:
-                        cursor.execute("""SELECT * FROM railway.firts_class WHERE ID= %s""", (booking[2],))
+                        cursor.execute("""SELECT * FROM railway.first_class WHERE ID= %s""", (booking[2],))
                         flight = cursor.fetchone()
                         flight_new_position = flight[4] + booking[1]
                         cursor.execute(
-                        """UPDATE railway.firts_class SET
+                        """UPDATE railway.first_class SET
                         Positions=%s
                         WHERE id = %s""",
                         (
@@ -376,11 +376,11 @@ class DatabaseControllerClient():
                         )
                         connection.commit()   
                     else:
-                        cursor.execute("""SELECT * FROM railway.firts_class WHERE ID= %s""", (booking[2],))
+                        cursor.execute("""SELECT * FROM railway.first_class WHERE ID= %s""", (booking[2],))
                         flight = cursor.fetchone()
                         flight_new_position = flight[4] + booking[1]
                         cursor.execute(
-                        """UPDATE railway.firts_class SET
+                        """UPDATE railway.first_class SET
                         Positions=%s
                         WHERE id = %s""",
                         (

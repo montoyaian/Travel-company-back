@@ -1,7 +1,7 @@
 from Classes.flight import Flight
 from datetime import date
 
-class Firtsclass(Flight):
+class Firstclass(Flight):
     def __init__(self, id:int, origin:str, destination:str, date:date, positions:int, hour:int, id_agency:int, premium_cost:float):
         super().__init__(id, origin, destination, date, positions, hour, id_agency)
         self.premium_cost = premium_cost
