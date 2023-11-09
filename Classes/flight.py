@@ -1,7 +1,7 @@
-from datetime import date
+from datetime import date,time
 
 class Flight:
-    def __init__(self, id:int, origin:str, destination:str, date:date, positions:int, hour:float, id_agency:int):
+    def __init__(self, id:int, origin:str, destination:str, date:date, positions:int, hour:time, id_agency:int):
         self.__id = id
         self.__origin = origin
         self.__destination = destination

@@ -1,8 +1,8 @@
 from Classes.flight import Flight
-from datetime import date
+from datetime import date,time
 
 class Standartclass(Flight):
-    def __init__(self, id:int, origin:str, destination:str, date:date, positions:int, hour:int, id_agency:int, standart_cost:float):
+    def __init__(self, id:int, origin:str, destination:str, date:date, positions:int, hour:time, id_agency:int, standart_cost:float):
         super().__init__(id, origin, destination, date, positions, hour, id_agency)
         self.__standart_cost = standart_cost
         

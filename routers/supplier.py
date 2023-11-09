@@ -38,3 +38,10 @@ def show_supplier(id:str = "all or id"):
     show supplier
     """ 
     return bd_object_flights.show_supplier(id=id)
+
+@supplier_router.get("/get/suppliername")
+def show_supplier_name():
+    """
+    show supplier name
+    """ 
+    return bd_object_flights.show_supplier_name()

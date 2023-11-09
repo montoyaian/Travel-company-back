@@ -1,6 +1,7 @@
 from Classes.standart_client import Standardclient
 from Classes.premium_client import PremiumClient
 from Classes.offers import Offer
+from Classes.Admins import Admins
 import mysql.connector
 from mysql.connector import Error
 from fastapi.encoders import jsonable_encoder
@@ -29,10 +30,21 @@ class DatabaseControllerClient():
         for i in rows:
             if (i[1] == data['name']  ) and (i[5] == data['password']):
                 encoded_jwt = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
-                return {'token': encoded_jwt }
-                
-            else:
-                continue
+                return {'token': encoded_jwt ,
+                        'user_role': "user"}
+        cursor.execute('SELECT * FROM railway.premium_client')
+        rows = cursor.fetchall()
+        for i in rows:
+            if (i[1] == data['name']  ) and (i[5] == data['password']):
+                encoded_jwt = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
+                return {'token': encoded_jwt  ,
+                        'user_role': "user"}        
+        for i in Admins:
+            if (i["name"] == data['name']  ) and (i["password"] == data['password']):
+                encoded_jwt = jwt.encode(data, SECRET_KEY, algorithm=ALGORITHM)
+                return {'token': encoded_jwt ,
+                        'user_role': "admin" }   
+
         return {"error" : "inicio de sesion fallido"}
         
         
