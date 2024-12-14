@@ -9,7 +9,7 @@ import jwt
 
 from models.client_model import *
 
-connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
+connection = mysql.connector.connect(user='root',password=System.getenv("DATABASEKEY"),host='monorail.proxy.rlwy.net',database='railway',port='42203')
 cursor = connection.cursor()
 
 DELETE_SUCCESS = {"message": "eliminacion completa"}
@@ -19,7 +19,7 @@ class DatabaseControllerClient():
     """
     def login(self, login_item:loginModel ):
 
-        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
+        connection = mysql.connector.connect(user='root',password=System.getenv("DATABASEKEY"),host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         SECRET_KEY = "travelcompany123456789"
         ALGORITHM = "HS256"
@@ -49,7 +49,7 @@ class DatabaseControllerClient():
         
         
     def insert_client(self, client: Standardclient or PremiumClient):
-        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
+        connection = mysql.connector.connect(user='root',password=System.getenv("DATABASEKEY"),host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
        
         if isinstance(client,Standardclient):
@@ -102,7 +102,7 @@ class DatabaseControllerClient():
             return clientj
 
     def insert_offer(self, offer:Offer):
-        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
+        connection = mysql.connector.connect(user='root',password=System.getenv("DATABASEKEY"),host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         if offer.flight_type == "standart class":
             cursor.execute(
@@ -170,7 +170,7 @@ class DatabaseControllerClient():
             return{"error": "tipo de vuelo no encotrado"}       
         
     def edit_client(self, client):
-        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
+        connection = mysql.connector.connect(user='root',password=System.getenv("DATABASEKEY"),host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         if isinstance(client, Standardclient):
             cursor.execute(
@@ -235,7 +235,7 @@ class DatabaseControllerClient():
                 return{"error": "cliente no encontrado"}
 
     def edit_offer(self,offer:Offer):
-        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
+        connection = mysql.connector.connect(user='root',password=System.getenv("DATABASEKEY"),host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         cursor.execute(
         """SELECT * FROM railway.Offers WHERE id = %s""",
@@ -313,7 +313,7 @@ class DatabaseControllerClient():
             return{"error": "reserva no encontrada"}  
                    
     def delete_client(self, id: int, client_type: str):
-        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
+        connection = mysql.connector.connect(user='root',password=System.getenv("DATABASEKEY"),host='monorail.proxy.rlwy.net',database='railway',port='42203')
         """
         Delete a client from database
         """
@@ -411,7 +411,7 @@ class DatabaseControllerClient():
             return {"error":"cliente no encontrado"}
         
     def delete_offer(self, id:int):
-        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
+        connection = mysql.connector.connect(user='root',password=System.getenv("DATABASEKEY"),host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         """
         Delete a offer from database
@@ -430,7 +430,7 @@ class DatabaseControllerClient():
             return {"error":"oferta no encontrada"} 
 
     def show_client(self, table_name:str, id: str):
-        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
+        connection = mysql.connector.connect(user='root',password=System.getenv("DATABASEKEY"),host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         try:
             if table_name == "all":
@@ -484,7 +484,7 @@ class DatabaseControllerClient():
             return {"error": "datos no encontrados"}     
 
     def show_offer(self, id:str):
-        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
+        connection = mysql.connector.connect(user='root',password=System.getenv("DATABASEKEY"),host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         if id == "all":
             cursor.execute(
@@ -523,7 +523,7 @@ class DatabaseControllerClient():
         
         
     def premium_clients(self):
-        connection = mysql.connector.connect(user='root',password='@73tubgixjy4e0qo1uqaw@9k7rvvm_nt',host='monorail.proxy.rlwy.net',database='railway',port='42203')
+        connection = mysql.connector.connect(user='root',password=System.getenv("DATABASEKEY"),host='monorail.proxy.rlwy.net',database='railway',port='42203')
         cursor = connection.cursor()
         cursor.execute(
         """SELECT * FROM railway.standart_client WHERE Bookings >= %s""",
