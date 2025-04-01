@@ -1,7 +1,7 @@
 from Classes.standart_client import Standardclient
 from Classes.premium_client import PremiumClient
 from fastapi import APIRouter, Depends, HTTPException
-from controller.bd_controller_clients import DatabaseControllerClient
+from controller.clients_controller.bd_controller_clients import DatabaseControllerClient
 from models.standart_client_model import *
 from models.premium_client_model import *
 from models.client_model import *

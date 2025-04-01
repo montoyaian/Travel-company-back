@@ -1,6 +1,6 @@
 from Classes.first_class import Firstclass
 from Classes.standart_class import Standartclass
-from controller.bd_controller_flight import DatabaseControllerFlight
+from controller.fligh_controller.bd_controller_flight import DatabaseControllerFlight
 from fastapi import APIRouter, Depends, HTTPException
 from models.standart_class_model import *
 from models.first_class_model import *

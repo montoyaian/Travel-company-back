@@ -1,9 +1,9 @@
 from Classes.offers import Offer
-from controller.bd_controller_clients import DatabaseControllerClient
+from controller.offers_controller.offers_controller import OffersController
 from models.offers_model import *
 from fastapi import APIRouter, Depends, HTTPException
 
-bd_object_client = DatabaseControllerClient() 
+bd_object_client = OffersController() 
 
 offers_router = APIRouter(
     prefix="/offers",

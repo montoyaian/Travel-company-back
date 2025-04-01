@@ -1,0 +1,38 @@
+# Entornos virtuales
+.venv/
+env/
+venv/
+
+# Archivos de configuración sensibles
+*.env
+*.env.local
+
+# Archivos compilados de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Archivos de logs
+*.log
+logs/
+
+# Archivos de bases de datos locales
+*.sqlite3
+*.db
+
+# Archivos de configuración de IDEs
+.vscode/
+.idea/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de pruebas
+.coverage
+*.coverage
+htmlcov/
+.tox/
+.nox/
+pytest_cache/

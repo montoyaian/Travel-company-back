@@ -1,5 +1,5 @@
 from Classes.supplier import Supplier
-from controller.bd_controller_flight import DatabaseControllerFlight
+from controller.fligh_controller.bd_controller_flight import DatabaseControllerFlight
 from fastapi import APIRouter, Depends, HTTPException
 from models.supplier_model import *
 
