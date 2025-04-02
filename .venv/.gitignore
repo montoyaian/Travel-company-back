@@ -20,7 +20,7 @@ logs/
 # Archivos de bases de datos locales
 *.sqlite3
 *.db
-
+__pycache__
 # Archivos de configuración de IDEs
 .vscode/
 .idea/

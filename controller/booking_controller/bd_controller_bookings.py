@@ -3,11 +3,7 @@ from Classes.booking import Booking
 import pymysql
 from database.config import DATABASE_CONFIG
 
-DELETE_SUCCESS = {"message": "eliminacion completa"}
 
-connection = pymysql.connect(**DATABASE_CONFIG)
-
-cursor = connection.cursor()
 class DatabaseControllerBokings():
 
     """

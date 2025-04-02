@@ -1,6 +1,6 @@
 from Classes.booking import Booking
 from models.booking_model import * 
-from controller.booking_controller.db_controller_bookings import DatabaseControllerBokings
+from controller.booking_controller.bd_controller_bookings import DatabaseControllerBokings
 from fastapi import APIRouter, Depends, HTTPException
 
 bd_object_booking = DatabaseControllerBokings() 
